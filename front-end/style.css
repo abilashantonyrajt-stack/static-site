@@ -329,8 +329,36 @@ body > form {
 
 }
 
+.booking-container,
+.booking-header{
+	max-width: 600px;
+	margin-inline: block;
+	padding: 20px 0 100px;
+	text-align: center;
+
+}
 
 
+
+.page-shell-for-appnt{
+margin: 0;
+	min-width: 320px;
+	background: var(--background);
+
+}
+
+
+.form-card{
+	justify-content: center;
+	align-self: center;
+	align-items: var(--line);
+	align-content: center;
+
+}
+
+main{
+	align-items: center;
+}
 
 
 

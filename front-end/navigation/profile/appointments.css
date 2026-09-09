@@ -1,0 +1,715 @@
+/* ============================================
+   APPOINTMENT BOOKING SYSTEM STYLES
+   ============================================ */
+
+.appointments-page {
+    background: linear-gradient(135deg, #fff7f1 0%, #f5e0d6 52%, #d7a58d 100%);
+    min-height: 100vh;
+    padding: 30px 20px !important;
+}
+
+.appointments-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 18px 45px rgba(91, 48, 35, 0.14);
+    overflow: hidden;
+}
+
+/* ============================================
+   HEADER SECTION
+   ============================================ */
+
+.appointments-header {
+    background: linear-gradient(135deg, #6f180b 0%, #a95f3b 100%);
+    color: white;
+    padding: 40px 30px;
+    text-align: center;
+}
+
+.back-link {
+    display: inline-block;
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    margin-bottom: 20px;
+    font-size: 14px;
+    transition: opacity 0.3s ease;
+}
+
+.back-link:hover {
+    opacity: 0.7;
+}
+
+.appointments-header h1 {
+    margin: 0 0 10px;
+    font-size: 2.2rem;
+    font-weight: bold;
+}
+
+.subtitle {
+    margin: 0;
+    font-size: 1rem;
+    opacity: 0.95;
+    font-style: italic;
+}
+
+/* ============================================
+   TABS NAVIGATION
+   ============================================ */
+
+.tabs-navigation {
+    display: flex;
+    background: #f9f9f9;
+    border-bottom: 1px solid #e9d1bd;
+    gap: 0;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 16px 20px;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #6f180b;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-bottom: 3px solid transparent;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tab-btn:hover {
+    background: #f0e6d9;
+}
+
+.tab-btn.active {
+    background: white;
+    border-bottom-color: #e05c30;
+    color: #e05c30;
+}
+
+/* ============================================
+   TAB CONTENT
+   ============================================ */
+
+.tab-content {
+    display: none;
+    padding: 40px 30px;
+    animation: fadeIn 0.3s ease;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================
+   BOOKING FORM STYLES
+   ============================================ */
+
+.appointment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.form-section {
+    padding: 20px;
+    background: #faf8f6;
+    border-radius: 15px;
+    border-left: 4px solid #e05c30;
+}
+
+.form-section h3 {
+    margin: 0 0 20px;
+    color: #6f180b;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.form-section label {
+    display: block;
+    margin-bottom: 8px;
+    color: #6f180b;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+/* ============================================
+   SERVICE GRID
+   ============================================ */
+
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.service-card {
+    padding: 20px;
+    background: white;
+    border: 2px solid #e9d1bd;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.service-card:hover {
+    border-color: #e05c30;
+    transform: translateY(-3px);
+}
+
+.service-card.selected {
+    background: #e05c30;
+    color: white;
+    border-color: #e05c30;
+}
+
+.service-emoji {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.service-name {
+    font-weight: 600;
+    font-size: 14px;
+    margin: 0;
+}
+
+.service-price {
+    font-size: 12px;
+    opacity: 0.8;
+    margin: 5px 0 0;
+}
+
+/* ============================================
+   DATE & TIME SELECTION
+   ============================================ */
+
+.date-time-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+@media (max-width: 600px) {
+    .date-time-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.date-picker-wrapper,
+.time-slots-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.date-picker-wrapper input {
+    padding: 12px 15px;
+    border: 2px solid #e9d1bd;
+    border-radius: 10px;
+    font-size: 16px;
+    font-family: inherit;
+    background: white !important;
+    color: #6f180b;
+}
+
+.date-picker-wrapper input:focus {
+    border-color: #e05c30;
+    outline: none;
+}
+
+/* ============================================
+   TIME SLOTS
+   ============================================ */
+
+.time-slots {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 10px;
+}
+
+.time-slot {
+    padding: 12px;
+    background: white;
+    border: 2px solid #e9d1bd;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.time-slot:hover:not(.booked) {
+    border-color: #e05c30;
+    background: #fff5f0;
+}
+
+.time-slot.selected {
+    background: #e05c30;
+    color: white;
+    border-color: #e05c30;
+}
+
+.time-slot.booked {
+    background: #ddd;
+    color: #999;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* ============================================
+   FORM ROWS & GROUPS
+   ============================================ */
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+@media (max-width: 600px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 12px 15px;
+    border: 2px solid #e9d1bd;
+    border-radius: 10px;
+    font-size: 16px;
+    font-family: inherit;
+    background: white !important;
+    color: #6f180b;
+    transition: all 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: #e05c30;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(224, 92, 48, 0.1);
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+/* ============================================
+   BOOKING SUMMARY
+   ============================================ */
+
+.booking-summary {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    border: 2px solid #e9d1bd;
+}
+
+.booking-summary h4 {
+    margin: 0 0 15px;
+    color: #6f180b;
+    font-size: 1rem;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0e6d9;
+    font-size: 14px;
+}
+
+.summary-item:last-child {
+    border-bottom: none;
+}
+
+.summary-label {
+    font-weight: 600;
+    color: #6f180b;
+}
+
+.summary-value {
+    color: #e05c30;
+    font-weight: 600;
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+
+.btn-submit,
+.btn-secondary {
+    padding: 14px 30px;
+    border: none;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-submit {
+    background: linear-gradient(135deg, #e05c30 0%, #6f180b 100%);
+    color: white;
+    align-self: flex-end;
+    margin-top: 20px;
+}
+
+.btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(224, 92, 48, 0.3);
+}
+
+.btn-submit:active {
+    transform: translateY(0);
+}
+
+.btn-secondary {
+    background: #6f180b;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #a95f3b;
+}
+
+/* ============================================
+   SUCCESS MESSAGE
+   ============================================ */
+
+.success-message {
+    text-align: center;
+    padding: 40px 20px;
+}
+
+.success-content {
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    border: 2px solid #28a745;
+    border-radius: 15px;
+    padding: 40px 30px;
+}
+
+.success-content h2 {
+    margin: 0 0 10px;
+    color: #155724;
+    font-size: 1.8rem;
+}
+
+.success-content p {
+    margin: 0 0 20px;
+    color: #155724;
+    font-size: 1rem;
+}
+
+/* ============================================
+   APPOINTMENTS LIST
+   ============================================ */
+
+.appointments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.appointment-card {
+    background: white;
+    border: 2px solid #e9d1bd;
+    border-radius: 12px;
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+.appointment-card:hover {
+    box-shadow: 0 10px 25px rgba(91, 48, 35, 0.1);
+    border-color: #e05c30;
+}
+
+.appointment-card.upcoming {
+    border-left: 4px solid #28a745;
+}
+
+.appointment-card.cancelled {
+    background: #f8f9fa;
+    opacity: 0.7;
+    border-left: 4px solid #dc3545;
+}
+
+.appointment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #e9d1bd;
+    padding-bottom: 12px;
+}
+
+.appointment-service {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #6f180b;
+}
+
+.appointment-status {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.status-upcoming {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-cancelled {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.appointment-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+@media (max-width: 600px) {
+    .appointment-details {
+        grid-template-columns: 1fr;
+    }
+}
+
+.detail-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.detail-label {
+    font-weight: 600;
+    color: #6f180b;
+    min-width: 80px;
+}
+
+.detail-value {
+    color: #555;
+}
+
+.appointment-notes {
+    background: #faf8f6;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    margin-bottom: 15px;
+    border-left: 3px solid #e05c30;
+}
+
+.appointment-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-action {
+    flex: 1;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.btn-edit {
+    background: #e05c30;
+    color: white;
+}
+
+.btn-edit:hover {
+    background: #c94620;
+}
+
+.btn-cancel {
+    background: #dc3545;
+    color: white;
+}
+
+.btn-cancel:hover {
+    background: #c82333;
+}
+
+/* ============================================
+   NO APPOINTMENTS
+   ============================================ */
+
+.no-appointments {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.no-appointments p {
+    font-size: 1.1rem;
+    color: #999;
+    margin: 0;
+}
+
+.link-text {
+    color: #e05c30;
+    cursor: pointer;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.link-text:hover {
+    color: #c94620;
+}
+
+/* ============================================
+   VALIDATION & ERROR MESSAGES
+   ============================================ */
+
+.error-message {
+    background: #f8d7da;
+    color: #721c24;
+    padding: 12px 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border-left: 4px solid #dc3545;
+}
+
+.error-text {
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 768px) {
+    .appointments-container {
+        border-radius: 10px;
+    }
+
+    .appointments-header {
+        padding: 30px 20px;
+    }
+
+    .appointments-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .tab-content {
+        padding: 25px 20px;
+    }
+
+    .form-section {
+        padding: 15px;
+    }
+
+    .tabs-navigation {
+        flex-wrap: wrap;
+    }
+
+    .tab-btn {
+        padding: 12px 15px;
+        font-size: 13px;
+    }
+
+    .appointment-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .appointment-status {
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .appointments-page {
+        padding: 15px 10px !important;
+    }
+
+    .appointments-container {
+        box-shadow: none;
+    }
+
+    .appointments-header {
+        padding: 20px 15px;
+    }
+
+    .appointments-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .subtitle {
+        font-size: 0.9rem;
+    }
+
+    .tab-content {
+        padding: 20px 15px;
+    }
+
+    .service-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .service-card {
+        padding: 15px 10px;
+    }
+
+    .service-emoji {
+        font-size: 1.5rem;
+    }
+
+    .service-name {
+        font-size: 12px;
+    }
+
+    .btn-submit {
+        align-self: stretch;
+        margin-right: 0;
+    }
+
+    .appointment-actions {
+        flex-direction: column;
+    }
+
+    .appointment-details {
+        gap: 10px;
+    }
+}

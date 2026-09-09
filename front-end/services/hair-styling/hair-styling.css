@@ -1,0 +1,337 @@
+/* ============================================
+   SERVICE PAGE STYLES - TEMPLATE
+   Used for all service pages:
+   - Hair Styling
+   - Hair Treatment
+   - Manicure
+   - Pedicure
+   - Spa
+   - Facial
+   ============================================ */
+
+@import url('../../styles/variables.css');
+@import url('../../styles/global.css');
+
+/* ============================================
+   SERVICE HEADER
+   ============================================ */
+
+.service-header {
+    background: linear-gradient(135deg, var(--ink) 0%, var(--cream) 100%);
+    color: white;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.service-header h1 {
+    color: white;
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.service-header .emoji {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.service-header p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.1rem;
+}
+
+/* ============================================
+   SERVICE OVERVIEW
+   ============================================ */
+
+.service-overview {
+    padding: 60px 20px;
+    background: white;
+}
+
+.overview-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.overview-content h2 {
+    color: var(--ink);
+    margin-bottom: 20px;
+}
+
+.overview-content p {
+    color: var(--cream);
+    line-height: 1.8;
+    margin-bottom: 15px;
+}
+
+.overview-image {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    aspect-ratio: 1;
+    object-fit: cover;
+}
+
+/* ============================================
+   BENEFITS SECTION
+   ============================================ */
+
+.benefits-section {
+    padding: 60px 20px;
+    background: var(--background-secondary);
+}
+
+.benefits-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.benefits-section h2 {
+    text-align: center;
+    color: var(--ink);
+    margin-bottom: 40px;
+}
+
+.benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px;
+}
+
+.benefit-card {
+    background: white;
+    padding: 30px;
+    border-radius: var(--radius-lg);
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.benefit-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow);
+}
+
+.benefit-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.benefit-card h3 {
+    color: var(--ink);
+    margin-bottom: 10px;
+}
+
+.benefit-card p {
+    color: var(--cream);
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+/* ============================================
+   PRICING SECTION
+   ============================================ */
+
+.pricing-section {
+    padding: 60px 20px;
+    background: white;
+}
+
+.pricing-container {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.pricing-section h2 {
+    color: var(--ink);
+    margin-bottom: 40px;
+}
+
+.pricing-card {
+    background: var(--background);
+    border-radius: var(--radius-lg);
+    padding: 40px;
+    box-shadow: var(--shadow-lg);
+}
+
+.price {
+    font-size: 3rem;
+    color: var(--muted);
+    font-weight: 700;
+    margin: 20px 0;
+}
+
+.price-info {
+    color: var(--cream);
+    margin-bottom: 30px;
+}
+
+.pricing-features {
+    text-align: left;
+    margin: 30px 0;
+}
+
+.pricing-features li {
+    list-style: none;
+    padding: 10px 0;
+    color: var(--ink);
+    border-bottom: 1px solid var(--line);
+}
+
+.pricing-features li:before {
+    content: "✓ ";
+    color: var(--muted);
+    font-weight: 600;
+    margin-right: 10px;
+}
+
+.pricing-features li:last-child {
+    border-bottom: none;
+}
+
+.pricing-card .button {
+    margin-top: 30px;
+}
+
+/* ============================================
+   TESTIMONIALS
+   ============================================ */
+
+.testimonials-section {
+    padding: 60px 20px;
+    background: var(--paper);
+}
+
+.testimonials-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.testimonials-section h2 {
+    text-align: center;
+    color: var(--ink);
+    margin-bottom: 40px;
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.testimonial-card {
+    background: white;
+    padding: 30px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+}
+
+.testimonial-stars {
+    color: var(--muted);
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+.testimonial-text {
+    color: var(--cream);
+    font-style: italic;
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.testimonial-author {
+    font-weight: 600;
+    color: var(--ink);
+}
+
+/* ============================================
+   CTA BUTTON
+   ============================================ */
+
+.service-cta {
+    text-align: center;
+    padding: 40px 20px;
+    background: white;
+}
+
+.service-cta .button {
+    background: linear-gradient(135deg, var(--muted) 0%, var(--cream) 100%);
+    color: white;
+    padding: 15px 40px;
+    font-size: 1.1rem;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+    .service-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .overview-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .benefits-grid,
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pricing-card {
+        padding: 30px;
+    }
+
+    .price {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .service-header {
+        padding: 40px 15px;
+    }
+
+    .service-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .service-header .emoji {
+        font-size: 2rem;
+    }
+
+    .service-overview,
+    .benefits-section,
+    .pricing-section,
+    .testimonials-section,
+    .service-cta {
+        padding: 40px 15px;
+    }
+
+    .overview-container {
+        padding: 0;
+    }
+
+    .pricing-card,
+    .benefit-card,
+    .testimonial-card {
+        padding: 20px;
+    }
+
+    .price {
+        font-size: 2.2rem;
+    }
+
+    .service-cta .button {
+        padding: 12px 30px;
+        font-size: 1rem;
+    }
+}
