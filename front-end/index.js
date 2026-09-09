@@ -21,7 +21,6 @@ window.addEventListener("click", (event) => {
 function find() {
   const query = document.getElementById("searchInput").value.toLowerCase();
 
-  // Perform search logic here
   if (query.includes("hair")) {
     window.location.href = "./navigation/Menu/HairStyling.html";
   }
