@@ -1,0 +1,62 @@
+/* ============================================
+   GLOBAL CSS VARIABLES
+   ============================================ */
+
+:root {
+    /* Colors */
+    --ink: #6f180b;
+    --muted: #e05c30;
+    --paper: #e9d1bd;
+    --cream: #bd763f;
+    --peach: #a95f3b;
+    --line: rgba(106, 28, 2, 0.18);
+    
+    /* Shadows */
+    --shadow: 0 18px 45px rgba(91, 48, 35, 0.14);
+    --shadow-sm: 0 4px 12px rgba(91, 48, 35, 0.08);
+    --shadow-lg: 0 24px 60px rgba(91, 48, 35, 0.2);
+    
+    /* Spacing */
+    --padding: 10px;
+    --margin: 10px;
+    --gap: 16px;
+    
+    /* Layout */
+    --width: 100%;
+    --max-width: 1200px;
+    --display: block;
+    
+    /* Backgrounds */
+    --background: linear-gradient(135deg, #fff7f1 0%, #f5e0d6 52%, #d7a58d 100%);
+    --background-secondary: linear-gradient(135deg, #f1fff5 0%, #b9dfc5 52%, #6d9d7a 100%);
+    
+    /* Transitions */
+    --transition: 0.3s ease;
+    --transition-fast: 0.15s ease;
+    --transition-slow: 0.5s ease;
+    
+    /* Border Radius */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-full: 100px;
+    
+    /* Z-index */
+    --z-header: 100;
+    --z-dropdown: 50;
+    --z-modal: 1000;
+    --z-tooltip: 500;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    :root {
+        --gap: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --gap: 8px;
+    }
+}

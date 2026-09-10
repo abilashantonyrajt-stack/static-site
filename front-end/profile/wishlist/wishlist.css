@@ -1,0 +1,350 @@
+/* ============================================
+   PROFILE PAGE STYLES - TEMPLATE
+   Used for profile pages:
+   - Picture
+   - Username
+   - Mail Info
+   - Notifications
+   - Cuppon Code
+   - Refer a Friend
+   - Logout
+   - Wishlist
+   ============================================ */
+
+@import url('../../styles/variables.css');
+@import url('../../styles/global.css');
+
+/* ============================================
+   PROFILE HEADER
+   ============================================ */
+
+.profile-header {
+    background: linear-gradient(135deg, var(--ink) 0%, var(--cream) 100%);
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.profile-header h1 {
+    color: white;
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.profile-header p {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* ============================================
+   BACK LINK
+   ============================================ */
+
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--muted);
+    text-decoration: none;
+    font-weight: 600;
+    margin-bottom: 30px;
+    transition: transform var(--transition);
+}
+
+.back-link:hover {
+    transform: translateX(-5px);
+    color: var(--cream);
+}
+
+/* ============================================
+   PROFILE CONTAINER
+   ============================================ */
+
+.profile-main {
+    padding: 60px 20px;
+    background: white;
+}
+
+.profile-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.profile-content {
+    background: white;
+    border-radius: var(--radius-lg);
+    border: 2px solid var(--line);
+    padding: 40px;
+    box-shadow: var(--shadow-sm);
+}
+
+.profile-content h2 {
+    color: var(--ink);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* ============================================
+   FORM STYLES
+   ============================================ */
+
+.profile-form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 12px 15px;
+    border: 2px solid var(--line);
+    border-radius: var(--radius-md);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: border-color var(--transition);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--muted);
+    outline: none;
+}
+
+.form-group input:disabled,
+.form-group select:disabled {
+    background: var(--paper);
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+
+.profile-form .button {
+    background: linear-gradient(135deg, var(--ink) 0%, var(--cream) 100%);
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: var(--radius-full);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform var(--transition), box-shadow var(--transition);
+    margin-top: 10px;
+}
+
+.profile-form .button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+.profile-form .button-secondary {
+    background: var(--paper);
+    color: var(--ink);
+    border: 2px solid var(--cream);
+}
+
+.profile-form .button-secondary:hover {
+    background: var(--cream);
+}
+
+.profile-form .button-danger {
+    background: #dc3545;
+}
+
+.profile-form .button-danger:hover {
+    background: #c82333;
+}
+
+/* ============================================
+   INFO DISPLAY
+   ============================================ */
+
+.info-display {
+    background: var(--paper);
+    border-radius: var(--radius-md);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+}
+
+.info-row:last-child {
+    border-bottom: none;
+}
+
+.info-label {
+    font-weight: 600;
+    color: var(--ink);
+}
+
+.info-value {
+    color: var(--cream);
+}
+
+/* ============================================
+   PROFILE LIST
+   ============================================ */
+
+.profile-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.list-item {
+    background: var(--paper);
+    padding: 20px;
+    border-radius: var(--radius-md);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.list-item:hover {
+    transform: translateX(5px);
+    box-shadow: var(--shadow-sm);
+}
+
+.list-item-content h3 {
+    color: var(--ink);
+    margin-bottom: 5px;
+}
+
+.list-item-content p {
+    color: var(--cream);
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+.list-item-action {
+    display: flex;
+    gap: 10px;
+}
+
+.list-item-action button {
+    padding: 8px 16px;
+    border-radius: var(--radius-full);
+    border: none;
+    cursor: pointer;
+    transition: transform var(--transition);
+}
+
+.list-item-action button:hover {
+    transform: scale(1.05);
+}
+
+/* ============================================
+   MESSAGES
+   ============================================ */
+
+.message {
+    padding: 15px;
+    border-radius: var(--radius-md);
+    margin-bottom: 20px;
+    display: none;
+}
+
+.message.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.message.error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.message.info {
+    background: #d1ecf1;
+    color: #0c5460;
+    border: 1px solid #bee5eb;
+}
+
+.message.show {
+    display: block;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+    .profile-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .profile-content {
+        padding: 30px;
+    }
+
+    .info-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .list-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .list-item-action {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-header {
+        padding: 30px 15px;
+    }
+
+    .profile-header h1 {
+        font-size: 1.3rem;
+    }
+
+    .profile-main {
+        padding: 40px 15px;
+    }
+
+    .profile-content {
+        padding: 20px;
+    }
+
+    .profile-form {
+        gap: 20px;
+    }
+
+    .list-item {
+        padding: 15px;
+    }
+
+    .back-link {
+        margin-bottom: 20px;
+    }
+}

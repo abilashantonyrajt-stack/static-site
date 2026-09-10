@@ -1,0 +1,4 @@
+﻿/* Page-specific styles for logout.html */
+@import url('../../style.css');
+
+body { min-height: 100vh; }

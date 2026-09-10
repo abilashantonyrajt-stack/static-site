@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="./contact.css">
+</head>
+<body class="page-shell">
+    <main class="form-card">
+      <p class="hero__eyebrow">DA2 Beauty Paradise</p>
+     <h1>Contact Us</h1>
+     <p>We'd love to hear from you! Please feel free to reach out to us with any questions or feedback.</p>
+    <form action="submit_contact_form.php" class="simple-form" method="post">
+    <label for="username">Name:</label>
+    <input type="text"  id="username" name="username" required><br><br>
+    
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required><br><br>
+    
+    <label for="message">Message:</label><br>
+    <textarea id="message" name="message" rows="5" cols="30" required></textarea><br><br>
+    
+    <input type="submit" value="Submit">
+        </form>
+    </main> 
+    <script src="./contact.js"></script>
+</body>
+</html>

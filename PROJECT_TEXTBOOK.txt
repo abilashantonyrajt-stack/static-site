@@ -1,0 +1,1378 @@
+DA2 BEAUTY PARADISE
+PROJECT TEXTBOOK
+
+A very simple guide to this project
+Written for a complete beginner
+
+============================================================
+HOW TO USE THIS BOOK
+============================================================
+
+This book explains the small website in the static site folder.
+It starts with the basic ideas and then explains the real files.
+Read one unit at a time. You do not need to know anything first.
+
+Words used in this book:
+
+HTML  - The structure of a web page. It tells the browser what exists.
+CSS   - The design of a web page. It controls colors, sizes, and layout.
+JavaScript - The behavior of a web page. It makes buttons do things.
+Browser - A program such as Chrome that displays web pages.
+Link   - Text or a button that takes you to another page.
+Element - One piece of HTML, such as a heading or a button.
+Attribute - Extra information inside an HTML opening tag.
+Selector - A CSS pattern that chooses what should be styled.
+Function - A named group of JavaScript instructions.
+Path   - The address that tells the browser where a file is.
+
+The project is called a static site because it is made from files that
+are sent directly to the browser. It does not currently have a real
+server database or working login system.
+
+============================================================
+TABLE OF CONTENTS
+============================================================
+
+UNIT 1  Meet the Project
+  Chapter 1  What a website is
+  Chapter 2  The project map
+  Chapter 3  How a browser reads files
+
+UNIT 2  HTML From the Beginning
+  Chapter 4  The basic HTML page
+  Chapter 5  Text, links, buttons, and forms
+  Chapter 6  File paths and capitalization
+
+UNIT 3  The Home Page
+  Chapter 7  Reading index.html line by line
+  Chapter 8  The home page layout
+
+UNIT 4  The Design File
+  Chapter 9  Reading style.css line by line
+  Chapter 10  Responsive design
+
+UNIT 5  The Behavior File
+  Chapter 11  Reading index.js line by line
+  Chapter 12  Dropdown behavior and search
+
+UNIT 6  The Other Pages
+  Chapter 13  Menu and service pages
+  Chapter 14  Profile pages
+  Chapter 15  About, Contact, and Search pages
+  Chapter 16  The login page and image files
+
+UNIT 7  Problems, Fixes, and Next Lessons
+  Chapter 17  What was wrong or misplaced
+  Chapter 18  What has been fixed
+  Chapter 19  What still needs work
+  Chapter 20  A simple practice plan
+
+============================================================
+UNIT 1 - MEET THE PROJECT
+============================================================
+
+------------------------------
+CHAPTER 1 - WHAT A WEBSITE IS
+------------------------------
+
+A website is a group of files that work together.
+
+HTML gives the page its skeleton. For example, HTML can create:
+- a heading
+- a paragraph
+- a picture
+- a link
+- a form
+
+CSS gives the skeleton its appearance. CSS can change:
+- color
+- size
+- space
+- position
+- background
+- mobile layout
+
+JavaScript gives the page actions. JavaScript can:
+- open a dropdown
+- close a dropdown
+- search for a service
+- check a form
+- change the page
+
+A simple way to remember this is:
+
+HTML = what is on the page
+CSS = how it looks
+JavaScript = what it does
+
+Your beauty website uses all three.
+
+------------------------------
+CHAPTER 2 - THE PROJECT MAP
+------------------------------
+
+The project root is the folder named:
+
+static site/
+
+Inside it is the main folder:
+
+static site/front-end/
+
+The current important files are:
+
+front-end/index.html
+This is the home page.
+
+front-end/style.css
+This is the shared design file. The goal is to keep CSS here.
+
+front-end/index.js
+This contains dropdown and search behavior.
+
+front-end/login.html
+This contains the login form.
+
+front-end/fevicon.ico
+This is the small browser tab icon.
+
+front-end/hairstyle1.png
+This is an image file. It is currently available but the current
+HairStyling page does not display it.
+
+front-end/navigation/About_Us.HTML
+This is the About Us content.
+
+front-end/navigation/Contact.HTML
+This is the Contact Us content and form.
+
+front-end/navigation/Wish_list.HTML
+This file is currently empty.
+
+front-end/navigation/menu/Menu.HTML
+This is an older standalone menu fragment. The home page now contains
+the working menu directly.
+
+front-end/navigation/menu/HairStyling.html
+This is the Hair Styling service page with a hero section.
+
+front-end/navigation/menu/HairTreatment.html
+This is a small Hair Treatment fragment.
+
+front-end/navigation/menu/Pedicure.html
+This is a small Pedicure fragment.
+
+front-end/navigation/menu/Manicure.html
+This is a small Manicure fragment.
+
+front-end/navigation/menu/assets/hairstyle1.png
+This is another copy or location of a hairstyle image.
+
+front-end/navigation/profile/Profile.HTML
+This is an older standalone profile dropdown fragment.
+
+front-end/navigation/profile/picture.html
+Empty profile page.
+
+front-end/navigation/profile/username.html
+Empty profile page.
+
+front-end/navigation/profile/mailinfo.html
+Empty profile page.
+
+front-end/navigation/profile/appointments.html
+Empty profile page.
+
+front-end/navigation/profile/notifications.html
+Empty profile page.
+
+front-end/navigation/profile/cupponcode.html
+Empty profile page. Note the word is spelled cuppon instead of coupon.
+
+front-end/navigation/profile/referAfriend.html
+Empty profile page.
+
+front-end/navigation/profile/logout.html
+Empty profile page.
+
+front-end/searchbar/Search_bar.HTML
+This file currently contains only whitespace.
+
+front-end/searchbar/items/hair.html
+This contains two hair service links.
+
+Some names use uppercase letters and some use lowercase letters.
+On Windows, this may sometimes appear to work. On many web servers,
+file names are case-sensitive. It is best to use one naming style.
+
+------------------------------
+CHAPTER 3 - HOW A BROWSER READS FILES
+------------------------------
+
+When you open index.html, the browser starts at the top.
+
+1. It reads the HTML.
+2. It finds the CSS link and loads style.css.
+3. It builds the page structure.
+4. It finds the JavaScript link and loads index.js.
+5. It displays the page.
+6. When you click a button, JavaScript may respond.
+
+A path beginning with ./ means "start in the current folder."
+For example, in index.html:
+
+./style.css
+
+means style.css is beside index.html.
+
+A path beginning with ../ means "go up one folder."
+Two ../ parts mean go up two folders.
+In HairStyling.html:
+
+../../style.css
+
+means:
+- start in navigation/menu
+- go up to navigation
+- go up to front-end
+- find style.css
+
+A wrong path means the browser cannot find the file.
+
+============================================================
+UNIT 2 - HTML FROM THE BEGINNING
+============================================================
+
+------------------------------
+CHAPTER 4 - THE BASIC HTML PAGE
+------------------------------
+
+A complete HTML page normally looks like this:
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page title</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Page heading</h1>
+  <p>Page text.</p>
+</body>
+</html>
+
+Line explanation:
+
+<!DOCTYPE html>
+This tells the browser to use modern HTML rules.
+It is a declaration, not normal page content.
+
+<html lang="en">
+This starts the HTML document. The lang attribute says the page uses
+English. This helps browsers and screen readers.
+
+<head>
+This starts the hidden information area. The head is not normally shown
+as page content.
+
+<meta charset="UTF-8">
+This tells the browser how to read letters and symbols.
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+This helps the page fit phones and tablets.
+
+<title>Page title</title>
+This sets the text shown in the browser tab.
+
+<link rel="stylesheet" href="style.css">
+This connects the HTML page to a CSS file.
+
+</head>
+This ends the hidden information area.
+
+<body>
+This starts the visible page content.
+
+<h1>Page heading</h1>
+This creates the main heading. A page normally has one main h1.
+
+<p>Page text.</p>
+This creates a paragraph.
+
+</body>
+This ends the visible content.
+
+</html>
+This ends the document.
+
+HTML tags usually have an opening tag and a closing tag.
+For example:
+
+<p>Text</p>
+
+The first p opens a paragraph. The second p, with a slash, closes it.
+Some elements, such as input and meta, do not need a closing tag.
+
+------------------------------
+CHAPTER 5 - TEXT, LINKS, BUTTONS, AND FORMS
+------------------------------
+
+A link uses the a element:
+
+<a href="login.html">Book Now</a>
+
+The href attribute gives the destination.
+The words between the tags are what the visitor clicks.
+
+A button uses the button element:
+
+<button type="button">Click me</button>
+
+A button can run JavaScript:
+
+<button onclick="find()">Search</button>
+
+The onclick attribute says to call find when the button is clicked.
+
+A form collects information:
+
+<form action="/login" method="post">
+  <label for="username">Username</label>
+  <input id="username" name="username" type="text">
+  <button type="submit">Login</button>
+</form>
+
+The form element holds the fields.
+The action says where the information should be sent.
+The method says how it should be sent.
+The label describes a field.
+The for value should match the field id.
+The input is where the visitor types.
+The name is the name sent with the form.
+The submit button sends the form.
+
+The current project has forms, but no real backend endpoint.
+Therefore the forms are visual demonstrations and are not a complete
+login or contact system yet.
+
+------------------------------
+CHAPTER 6 - FILE PATHS AND CAPITALIZATION
+------------------------------
+
+A link is only useful if its path matches a real file.
+For example, the home page uses:
+
+./navigation/menu/HairStyling.html
+
+This points to the HairStyling.html file inside navigation/menu.
+
+A path problem from the older code was:
+
+./navigation/About_us.html
+
+The real file is named About_Us.HTML.
+The word Us has a capital U, and the extension has capital letters.
+The path should match the real file exactly:
+
+./navigation/About_Us.HTML
+
+Another older problem was:
+
+./navigation/wish_list.html
+
+The real file is Wish_list.HTML.
+Again, the capitalization and extension are different.
+
+Another problem was in the profile fragment:
+
+./navigation/Profile/Picture.html
+
+The real folder is profile with a lowercase p. The real file is also
+picture.html with a lowercase p. A path should use the real folder.
+
+A useful beginner habit is:
+1. Look at the folder.
+2. Copy the exact file name.
+3. Paste it into href.
+4. Check every capital letter.
+
+============================================================
+UNIT 3 - THE HOME PAGE
+============================================================
+
+------------------------------
+CHAPTER 7 - READING index.html LINE BY LINE
+------------------------------
+
+The current file is front-end/index.html.
+Below is every meaningful line or small group of related lines.
+
+Line 1: <!DOCTYPE html>
+The page uses modern HTML.
+
+Line 2: <html lang="en">
+The document starts and its language is English.
+
+Line 3: <head>
+The hidden setup area begins.
+
+Line 4: <meta charset="UTF-8">
+The browser reads text using UTF-8.
+
+Line 5: <meta name="viewport" content="width=device-width, initial-scale=1.0">
+The page can adjust to the device width.
+
+Line 6: <title>DA<sup>2</sup> Beauty paradise</title>
+The browser tab title is set. The sup element makes the 2 appear
+raised like a small upper number.
+
+Line 7: <link rel="icon" type="image/x-icon" href="./fevicon.ico">
+The browser tab uses fevicon.ico as its icon. The filename fevicon is
+a spelling choice; the common spelling is favicon, but the current file
+and link match each other.
+
+Line 8: <link rel="stylesheet" href="./style.css">
+The home page loads the shared CSS file.
+
+Line 9: </head>
+The hidden setup ends.
+
+Line 10: <body>
+Visible content begins.
+
+Lines 11-14: the header and brand
+The header holds the website name and the navigation controls.
+
+<a class="brand" href="./index.html">
+This creates the brand link. Clicking it returns to the home page.
+The class brand lets CSS design it.
+
+DA<sup>2</sup> Beauty Paradise
+This is the visible brand name.
+
+<nav class="header-actions" aria-label="Main navigation">
+This groups the main navigation. The aria-label gives the group a
+clear name for screen readers.
+
+The first dropdown div has class dropdown.
+This makes a small container for the Menu button and its menu list.
+
+<button class="dropbtn button button--light"
+onclick="toggleDropdown('menuDropdown')">Menu</button>
+This creates the Menu button.
+The classes connect it to CSS.
+The onclick calls the JavaScript function and sends the ID of the menu.
+
+<div id="menuDropdown" class="dropdown-content">
+This is the menu list. Its unique ID lets JavaScript find it.
+The CSS initially hides it.
+
+The four a elements inside it link to Hair Styling, Hair Treatment,
+Pedicure, and Manicure. Each href starts with ./ because these pages
+are below the front-end folder.
+
+The second dropdown is built in the same way.
+Its button calls toggleDropdown('profileDropdown').
+Its menu has id="profileDropdown".
+This different ID is important because two elements should not share the
+same ID on one page.
+
+The profile links lead to picture, username, mailinfo, appointments,
+notifications, cupponcode, referAfriend, and logout.
+Some of these pages are empty, so the link may open a blank page.
+
+</nav>
+The main navigation ends.
+
+</header>
+The header ends.
+
+<div class="search-bar">
+This creates the search area and gives it a CSS class.
+
+<input type="text" id="searchInput" placeholder="Search services..." />
+This creates a text box.
+The ID lets JavaScript read the visitor's search words.
+The placeholder is the light hint shown before typing.
+
+<button onclick="find()" id="buttonsearch" class="button button--dark">Search</button>
+This creates a Search button.
+When clicked, it calls the find function.
+The ID identifies it, and the class gives it the dark button style.
+
+</div>
+The search area ends.
+
+<script src="./index.js"></script>
+This loads the JavaScript beside index.html.
+
+<section class="hero hero--home">
+This starts the large home hero section.
+The hero is the first important visual area of the home page.
+The extra class hero--home gives room for a special home style later.
+
+<div class="hero__content">
+This holds the text and booking link inside the hero.
+
+<p class="hero__eyebrow">Beauty, your way</p>
+This is a small uppercase-style introduction line.
+
+<h1>Feel good.<br>Look beautiful.</h1>
+This is the main page heading.
+The br creates a line break between the two sentences.
+
+<p class="hero__intro">Simple beauty services made for your best days.</p>
+This is supporting text under the heading.
+
+<a class="button button--dark" href="./login.html">Book Now</a>
+This looks like a button because CSS styles the link.
+It takes the visitor to login.html.
+
+The closing div and section tags end the hero.
+
+<nav class="quick-links" aria-label="Quick links">
+This creates a second navigation group for About Us, Contact, and Wish
+List. Its aria-label describes the group to assistive technology.
+
+<footer class="site-footer">
+This starts the bottom area of the page.
+Each div inside it is currently placeholder text, such as Footer content,
+Social media links, and Privacy policy.
+They show future areas but do not yet contain real links or information.
+
+The closing footer, body, and html tags end the page.
+
+------------------------------
+CHAPTER 8 - THE HOME PAGE LAYOUT
+------------------------------
+
+The home page is arranged in this order:
+
+1. Header and brand
+2. Menu and Profile controls
+3. Search area
+4. Hero section
+5. Quick links
+6. Footer
+
+This is a good simple order because visitors see the brand and controls
+first, then the main message, then supporting links.
+
+The old home page used object elements to insert Menu.HTML and
+Profile.HTML. An object creates a separate embedded document. That made
+the dropdown difficult to use because the embedded area was very short.
+The menu could open inside a small frame and become clipped.
+
+The current home page puts both dropdowns directly in index.html.
+This means the dropdown is part of the main page and can expand normally.
+
+============================================================
+UNIT 4 - THE DESIGN FILE
+============================================================
+
+------------------------------
+CHAPTER 9 - READING style.css LINE BY LINE
+------------------------------
+
+The current file is front-end/style.css.
+It is the shared design file.
+All normal page CSS should go here instead of inside HTML style tags.
+
+:root {
+This selects the top-level document area. It is a good place for shared
+color and shadow variables.
+
+--ink: #3c211d;
+This stores the dark brown text color.
+
+--muted: #765c53;
+This stores a softer text color for less important information.
+
+--paper: #fffaf6;
+This stores the warm off-white page color.
+
+--cream: #fff1e6;
+This stores a pale cream color.
+
+--peach: #e5b39a;
+This stores the peach accent color.
+
+--line: rgba(60, 33, 29, 0.18);
+This stores a partly transparent border color.
+The last number, 0.18, controls how see-through it is.
+
+--shadow: 0 18px 45px rgba(91, 48, 35, 0.14);
+This stores a reusable soft shadow.
+The numbers describe horizontal position, vertical position, blur, and
+color transparency.
+
+}
+This ends the variable group.
+
+* { box-sizing: border-box; }
+The star selects every element.
+box-sizing border-box makes width and height easier to understand because
+padding and borders are counted inside the declared size.
+
+html { font-family: Georgia, 'Times New Roman', serif; ... }
+This sets the main font family and the default text and background colors.
+Georgia is the preferred font. Times New Roman is a backup.
+
+body { margin: 0; min-width: 320px; background: var(--paper); }
+Browsers add a default outside margin, so margin 0 removes it.
+The minimum width prevents the layout from becoming too narrow.
+The body gets the paper background.
+
+var(--paper)
+This tells CSS to use the value stored in --paper.
+
+ a { color: inherit; }
+Links use the color of their parent instead of the browser's default blue.
+
+button, input, textarea { font: inherit; }
+These controls use the same font as the rest of the page.
+
+.site-header { ... }
+This styles the top header.
+position relative allows related positioning.
+z-index 5 helps the header appear above nearby content.
+display flex places children in a row.
+align-items center aligns them vertically.
+justify-content space-between pushes the brand and actions apart.
+gap adds space between children.
+padding adds inside space.
+background and border-bottom create the clean header appearance.
+
+.brand { ... }
+This makes the website name larger, bold, and without an underline.
+
+.brand sup { font-size: 0.6em; }
+This makes the raised 2 smaller.
+
+.header-actions { display: flex; gap: 10px; }
+This places Menu and Profile next to each other with a small gap.
+
+.dropdown { position: relative; display: inline-block; }
+This creates a container that can hold a button and a menu below it.
+relative is important because the dropdown list is positioned against it.
+
+.button, .dropbtn { ... }
+These shared rules style links and buttons alike.
+display inline-block allows padding and size.
+border 0 removes the default button border.
+padding creates comfortable click space.
+cursor pointer shows that the item can be clicked.
+transition makes hover movement smooth.
+
+.button:hover, .dropbtn:hover { transform: translateY(-2px); }
+When the pointer is over a button, it moves up two pixels.
+
+.button--dark
+This gives a dark background and light text.
+
+.button--light
+This gives a light cream background, dark text, and a border.
+
+.dropdown-content
+This styles the hidden menu list.
+display none hides it until JavaScript changes it to block.
+position absolute allows it to float below its parent.
+top places it eight pixels below the button.
+right 0 aligns its right edge with the parent.
+min-width makes the links easy to read and click.
+overflow hidden keeps content inside the box.
+background, border, and box-shadow make it visible.
+
+.dropdown-content a
+Each menu link becomes a full row with padding and no underline.
+
+.dropdown-content a:hover
+A cream background appears when a visitor points at a menu link.
+
+.search-bar
+This makes the search controls a flexible row.
+display flex puts the input and button beside each other.
+gap adds space.
+max-width stops the search box from becoming too wide.
+margin centers it.
+padding adds phone-friendly side space.
+
+.search-bar input, .simple-form input, .simple-form textarea
+These controls get full width, a border, padding, a white background,
+and the main text color.
+
+.hero
+This is the main large visual area.
+min-height 100vh makes it at least as tall as the visible screen.
+display grid and place-items center center its contents.
+padding protects the content from the screen edges.
+background linear-gradient creates a gentle warm color change.
+color sets the text color.
+
+.hero__content
+This centers the hero text inside a readable panel.
+width min(760px, 100%) means it can be 760 pixels wide but never wider
+than its parent.
+padding creates inner space.
+border, background, and box-shadow give it a calm panel appearance.
+text-align center centers the text.
+
+.hero__eyebrow
+This creates a small uppercase-style label with letter spacing.
+
+.hero h1
+This styles h1 elements inside a hero only.
+margin 0 removes the default heading gap.
+font-size clamp chooses a size that changes within safe limits.
+line-height 0.95 makes the large heading compact.
+
+.hero__intro
+This adds space and readable size to the hero supporting sentence.
+
+.hairstyling-service
+This places service name, price, and booking link in a row.
+flex-wrap lets them move to another line when the screen is narrow.
+The top border separates service details from the introduction.
+
+.service__name and .service__price
+These remove paragraph margins and make the text bold.
+
+.service__price
+This makes the price larger.
+
+.service__button
+This makes the booking link look like a dark button.
+
+.quick-links
+This centers the extra navigation links and adds space and a border.
+
+.quick-links a
+This removes the default underline and adds a simple bottom line.
+
+.site-footer
+This creates a flexible grid for the footer placeholder items.
+auto-fit lets the browser choose how many columns fit.
+minmax prevents each item from becoming too small.
+
+.page-shell
+This is the full-screen background and centering layout for login.
+
+.form-card
+This is the white login panel. width min keeps it small on desktop and
+safe on mobile. padding adds room. box-shadow separates it from the back.
+
+.form-card h1
+This makes the login heading larger and removes extra top spacing.
+
+.simple-form
+This uses a grid layout and gap to stack form fields neatly.
+
+.simple-form label
+This adds a little space above labels and makes them bold.
+
+body > h1, body > p, body > form
+The > symbol means direct children of body.
+These rules style the small older content pages without requiring a new
+class on every fragment.
+
+@media (max-width: 560px)
+This starts a mobile rule group. It applies when the screen is 560 pixels
+wide or less.
+The header can wrap.
+The brand takes a full row.
+Hero padding becomes smaller.
+Search and quick links become vertical.
+The login card becomes less padded.
+
+------------------------------
+CHAPTER 10 - RESPONSIVE DESIGN
+------------------------------
+
+Responsive design means one page can work on a large monitor and a phone.
+
+A desktop has room for Menu, Profile, and a search input in rows.
+A phone has less room, so flex items are allowed to wrap or stack.
+
+The project uses:
+- flex layouts
+- grid layouts
+- min and max widths
+- a media query
+- flexible hero text
+
+The CSS uses clamp for the hero heading:
+
+font-size: clamp(3rem, 8vw, 6.5rem);
+
+This means:
+- never smaller than 3rem
+- try a size based on 8 percent of the viewport width
+- never larger than 6.5rem
+
+============================================================
+UNIT 5 - THE BEHAVIOR FILE
+============================================================
+
+------------------------------
+CHAPTER 11 - READING index.js LINE BY LINE
+------------------------------
+
+The current file is front-end/index.js.
+
+function toggleDropdown(dropdownId) {
+This starts a function named toggleDropdown.
+The function receives a value called dropdownId.
+A value inside the parentheses is called a parameter.
+
+const dropdown = document.getElementById(dropdownId);
+The browser document is searched for the element with that ID.
+const creates a variable that should not be reassigned.
+
+const isOpen = dropdown.style.display === "block";
+This checks whether the menu's inline display value is block.
+The result is true or false.
+The three equal signs compare values strictly.
+
+ document.querySelectorAll(".dropdown-content").forEach((menu) => {
+This finds every dropdown-content element and repeats the next action
+for each one.
+The arrow function receives one menu at a time.
+
+menu.style.display = "none";
+Every dropdown is first hidden. This closes another open dropdown.
+
+});
+This ends the repeated action.
+
+dropdown.style.display = isOpen ? "none" : "block";
+This is a short if statement called a ternary expression.
+If isOpen is true, use none. Otherwise use block.
+This opens the selected menu or closes it if it was already open.
+
+}
+This ends toggleDropdown.
+
+window.addEventListener("click", (event) => {
+This listens for every click on the window.
+The event object describes the click.
+
+if (!event.target.closest(".dropdown")) {
+The code asks whether the clicked element is inside a dropdown.
+If it is not inside one, the following code runs.
+
+ document.querySelectorAll(".dropdown-content").forEach((menu) => {
+Again, find all dropdown menus and repeat an action.
+
+menu.style.display = "none";
+Hide every menu. This closes open menus when the visitor clicks elsewhere.
+
+});
+}
+});
+These braces end the if, the event function, and the event listener.
+
+function find() {
+This starts the search function. The Search button calls it.
+
+const query = document.getElementById("searchInput").value.toLowerCase();
+Find the search box, read its value, and change it to lowercase.
+This means Hair and hair can be treated the same way.
+
+// Perform search logic here
+This is a comment. The browser ignores it.
+It explains that search logic follows.
+
+if (query.includes("hair")) {
+If the typed words contain hair, the first result is used.
+includes returns true or false.
+
+window.location.href = "./navigation/Menu/HairStyling.html";
+Change the browser address to the Hair Styling page.
+window.location is the current page location.
+href is its address.
+
+} else if (query.includes("treatment")) {
+If hair was not found, check for treatment.
+
+window.location.href = "./navigation/Menu/HairTreatment.html";
+Open the Hair Treatment page when treatment is found.
+
+} else {
+If neither word was found, use the final choice.
+
+alert("result not found for: " + query);
+Show a browser alert with the typed search words.
+The plus sign joins strings together.
+
+}
+}
+These braces close the search choices and the function.
+
+------------------------------
+CHAPTER 12 - DROPDOWN BEHAVIOR AND SEARCH
+------------------------------
+
+The menu button sends menuDropdown to the function.
+The profile button sends profileDropdown.
+Because the IDs are different, JavaScript opens the correct list.
+
+The old code had two functions that both searched for:
+
+ document.getElementById("myDropdown")
+
+Both menu and profile fragments used the same ID.
+That caused the wrong dropdown to be selected when both existed together.
+The old code also assigned window.onclick twice. The second assignment
+replaced the first one.
+
+The new code has one function and one click listener.
+This is easier to read and less likely to conflict.
+
+The search is deliberately simple. It only knows the words hair and
+treatment. It does not search every service yet.
+
+============================================================
+UNIT 6 - THE OTHER PAGES
+============================================================
+
+------------------------------
+CHAPTER 13 - MENU AND SERVICE PAGES
+------------------------------
+
+Menu.HTML begins with:
+
+<link rel="stylesheet" href="../../style.css">
+
+This connects the standalone menu fragment to the shared design file.
+It must go up two folders because Menu.HTML is in navigation/menu.
+
+The dropdown has a button and a div with id myDropdown.
+Its button calls toggleDropdown('myDropdown').
+This older fragment can still work when opened by itself, as long as the
+JavaScript path is loaded and the function is available.
+
+Its links use target="_top".
+Target top means open the destination in the top-level browsing window.
+This was added when the menu was inside an object frame.
+
+The current home page no longer uses this fragment, but it is kept as a
+standalone version.
+
+HairStyling.html is the most complete service page.
+
+<!DOCTYPE html>
+A modern HTML document starts.
+
+<html lang="en">
+The language is English.
+
+<head>
+The setup area starts.
+
+<meta charset="UTF-8">
+Text uses UTF-8.
+
+<meta name="viewport" ...>
+The page works better on mobile screens.
+
+<title>Hair Styling | DA2 Beauty Paradise</title>
+The browser tab gets a useful title.
+
+<link rel="stylesheet" href="../../style.css">
+The service page loads the shared CSS file.
+
+<body>
+Visible content starts.
+
+<main>
+This says the content is the main content of the page.
+
+<section class="hero hero--service">
+This creates a full-page service hero.
+
+<div class="hero__content">
+This centers the content.
+
+The eyebrow, h1, introduction, and service detail paragraphs display
+the brand, service name, message, and price.
+
+<a class="service__button" href="../../login.html">Book Now</a>
+This sends a visitor from the service page back to the login page.
+
+The closing main, body, and html tags end the complete document.
+
+HairTreatment.html, Pedicure.html, and Manicure.html currently contain:
+
+<div>
+  <h1>Service name</h1>
+  <p>Welcome to our Service name section!</p>
+</div>
+
+The div groups the content.
+The h1 is the page heading.
+The p is the welcome message.
+These are content fragments, not complete HTML documents. They still
+show text in a browser, but they should eventually receive a complete
+page shell and the shared stylesheet.
+
+The menu also links to Makeup.html, but that file does not currently
+exist. Clicking that old menu item will fail until the file is created or
+the link is removed.
+
+------------------------------
+CHAPTER 14 - PROFILE PAGES
+------------------------------
+
+Profile.HTML is an older profile dropdown fragment.
+It links to style.css and contains a Profile button and list.
+The button now calls toggleDropdown('myDropdown'), which matches the
+shared JavaScript function.
+
+However, the home page does not embed this fragment anymore. The working
+profile dropdown is directly in index.html.
+
+The profile links point to several blank files:
+- picture.html
+- username.html
+- mailinfo.html
+- appointments.html
+- notifications.html
+- cupponcode.html
+- referAfriend.html
+- logout.html
+
+A blank file is still a real file, but the browser has no content to show.
+A good next step is to give each one a heading, a short explanation, and
+a link back to the home page.
+
+The name cupponcode.html is misspelled. The normal spelling is
+couponcode.html. It is not automatically wrong if every link uses the
+same spelling, but consistent spelling makes projects easier to maintain.
+
+------------------------------
+CHAPTER 15 - ABOUT, CONTACT, AND SEARCH PAGES
+------------------------------
+
+About_Us.HTML contains:
+
+<h1>About Us</h1>
+This is the main heading.
+
+<p>Welcome to our company! ...</p>
+This is the description paragraph.
+
+It is a small fragment and does not yet have a document head, body,
+or stylesheet link.
+
+Contact.HTML contains a heading and paragraph, then a form.
+
+<form action="submit_contact_form.php" method="post">
+The form tries to send data to submit_contact_form.php using POST.
+That PHP file does not exist in the project, so submission will not have
+a working destination yet.
+
+<label for="name">Name:</label>
+The label tells the visitor what to enter.
+
+<input type="text" id="name" name="name" required>
+This asks for text.
+The id connects it to the label.
+The name is the submitted field name.
+required stops an empty submission in the browser.
+
+The email field works in the same pattern but uses type email.
+The browser can check that the entry looks like an email address.
+
+<textarea id="message" name="message" rows="5" cols="30" required>
+This creates a larger box for a message.
+rows and cols are old-fashioned size hints. CSS is better for final size.
+
+<input type="submit" value="Submit">
+This creates a submit control.
+
+Search_bar.HTML is empty, so it currently displays nothing.
+The name uses an underscore and capital letters. A simpler consistent name
+would be search-bar.html or searchbar.html.
+
+items/hair.html contains:
+
+<div id="Hair">
+This groups hair search results and gives the group an ID.
+
+<a href="../../navigation/menu/HairStyling.html">
+From searchbar/items, going up two folders reaches front-end, then the
+path goes into navigation/menu. This path is correct for that location.
+
+<h3>pick your fav hairstyle</h3>
+This is a smaller heading inside the link.
+Clicking it opens HairStyling.
+
+The second link points to HairTreatment.
+The closing tags end both links and the div.
+
+------------------------------
+CHAPTER 16 - THE LOGIN PAGE AND IMAGE FILES
+------------------------------
+
+login.html is a complete HTML document.
+
+The head sets UTF-8, the mobile viewport, the title Login, and the shared
+stylesheet link.
+
+<body class="page-shell">
+The class applies the full-screen login background from CSS.
+
+<main class="form-card">
+The class creates the centered login panel.
+
+<p class="hero__eyebrow">DA2 Beauty Paradise</p>
+This reuses an existing small-label style.
+
+<h1>Welcome back</h1>
+This is the login heading.
+
+<p>Log in to book your next beauty appointment.</p>
+This explains the purpose of the form.
+
+<form class="simple-form" action="/login" method="post">
+The class gives the form a neat vertical layout.
+The action points to /login, but there is no backend route in this
+static project. The browser can show the form, but login is not complete.
+
+The username input collects text.
+The password input hides typed characters.
+required means both fields are needed in the browser.
+
+<button class="button button--dark" type="submit">Login</button>
+This submits the form and receives the dark button style.
+
+The small script block at the bottom only contains a comment.
+The comment says validation could be added, but no validation code is
+currently there. Since the project goal is a separate CSS file, any
+future CSS should not be placed in this script or in the HTML head.
+
+The files fevicon.ico and hairstyle1.png are binary assets.
+They are not text code, so there are no HTML or JavaScript lines to read.
+The browser uses them as images or icons.
+
+============================================================
+UNIT 7 - PROBLEMS, FIXES, AND NEXT LESSONS
+============================================================
+
+------------------------------
+CHAPTER 17 - WHAT WAS WRONG OR MISPLACED
+------------------------------
+
+Problem 1: The menu and profile were inside object elements.
+An object creates an embedded document. The old CSS gave the object a
+very small height. Dropdown content opened inside that small area and
+could be clipped.
+
+Problem 2: Both old dropdowns used id="myDropdown".
+IDs should be unique on one page. JavaScript could find only the first
+matching element reliably.
+
+Problem 3: The old JavaScript had two window.onclick assignments.
+The second assignment replaced the first assignment. This made the code
+hard to reason about and could remove earlier behavior.
+
+Problem 4: The old JavaScript had two separate functions, toggleMenu and
+toggleProfile, but both searched for the same ID.
+The function names looked different, but their target was not different.
+
+Problem 5: CSS was placed inside HTML.
+The old index.html, Menu.HTML, and Profile.HTML contained style blocks.
+This made design rules difficult to find and repeat.
+
+Problem 6: Some old links did not match real file names.
+About_us.html did not exactly match About_Us.HTML.
+Wish_list.html did not exactly match Wish_list.HTML.
+Some profile paths used Profile with a capital P even though the folder is
+profile with a lowercase p.
+
+Problem 7: The menu listed Makeup.html, but Makeup.html does not exist.
+That link is unfinished.
+
+Problem 8: Many files are only fragments.
+A fragment can be useful inside another page, but a visitor opening it
+directly should receive a complete HTML document.
+
+Problem 9: Several profile pages are empty.
+Their links work as paths, but their pages have no visible content.
+
+Problem 10: The login and contact forms have no backend.
+The browser can display and validate basic fields, but no server code
+currently receives or stores the information.
+
+Problem 11: Search only handles two words.
+The find function recognizes hair and treatment, but not manicure,
+pedicure, or other services.
+
+Problem 12: The image is not currently used on HairStyling.
+hairstyle1.png exists, but there is no img element in the current hero.
+
+Problem 13: The home page once had unnecessary inline positioning.
+The old search button was pushed down and sideways with top and left.
+This is fragile. The current flex search row is easier to control.
+
+------------------------------
+CHAPTER 18 - WHAT HAS BEEN FIXED
+------------------------------
+
+Fix 1: The working dropdown controls were moved into index.html.
+They now belong to the main page instead of a clipped object.
+
+Fix 2: Menu and profile received separate IDs.
+They use menuDropdown and profileDropdown.
+
+Fix 3: One shared toggleDropdown function replaced duplicate functions.
+It closes all menus first and then opens the chosen menu.
+
+Fix 4: One outside-click listener closes open dropdowns.
+
+Fix 5: target="_top" was added to the older standalone menu links.
+This helps them escape an embedding frame if one is used.
+
+Fix 6: CSS was moved into front-end/style.css.
+The current source audit found no inline style blocks or style attributes
+in the HTML files.
+
+Fix 7: A shared design system was added.
+It uses named color variables, reusable button classes, dropdown classes,
+hero classes, form classes, and a mobile media query.
+
+Fix 8: HairStyling.html was changed into a complete page.
+It now has a document head, a shared stylesheet link, and a hero section.
+
+Fix 9: The home page received a more organized layout.
+It now has a header, search row, hero, quick links, and footer.
+
+Fix 10: The login page received the shared stylesheet and a simple card.
+
+Validation completed after the fixes:
+- JavaScript syntax check passed.
+- HTML error checks passed for the changed pages.
+- CSS error check passed.
+- 22 HTML files were checked for inline styles.
+- The inline-style count was 0.
+- The stylesheet had one main hero rule and one mobile media query.
+
+------------------------------
+CHAPTER 19 - WHAT STILL NEEDS WORK
+------------------------------
+
+The project is a good learning beginning, but these features are not
+complete yet:
+
+1. Add complete document shells to the small pages.
+Each page should have doctype, html, head, title, stylesheet link, body,
+and main content.
+
+2. Create the missing Makeup.html file or remove its link.
+
+3. Fix every capitalization mismatch in paths.
+Use one style for folders and files, preferably lowercase names with
+hyphens, such as hair-styling.html.
+
+4. Fill the empty profile pages.
+
+5. Add a real server for login and contact forms.
+A static HTML page alone cannot safely log users in.
+
+6. Add a real booking page or booking form.
+
+7. Expand search to all services.
+
+8. Decide whether the old Menu.HTML and Profile.HTML fragments are still
+needed. If they are not needed, archive or remove them later. Do not
+delete them until you are sure nothing uses them.
+
+9. Add meaningful footer links instead of placeholder divs.
+
+10. Use the hairstyle image in an img element if it belongs in the design.
+An image needs useful alt text, for example:
+
+<img src="hairstyle1.png" alt="A finished hair styling look">
+
+11. Improve accessibility.
+Use clear labels, keyboard focus styles, meaningful link text, and
+buttons for actions.
+
+12. Test in a browser at desktop and phone widths.
+A code check can find syntax mistakes, but a browser check finds visual
+mistakes.
+
+------------------------------
+CHAPTER 20 - A SIMPLE PRACTICE PLAN
+------------------------------
+
+Practice 1: Change one CSS variable.
+Change --peach and refresh the browser. Notice every place that changes.
+
+Practice 2: Change the hero heading.
+Edit the h1 in index.html and refresh.
+
+Practice 3: Add a new service link.
+Add a link inside menuDropdown. Make sure the destination file exists.
+
+Practice 4: Add a new search word.
+Add another else if branch to find, then test it in the browser.
+
+Practice 5: Fill username.html.
+Give it a complete HTML shell and add a heading and paragraph.
+Link style.css with ../.. because the file is two folders below front-end.
+
+Practice 6: Add an image.
+Use an img element and always write useful alt text.
+
+Practice 7: Inspect the page.
+Right-click in the browser and choose Inspect. Look at the Elements tab
+for HTML and the Styles tab for CSS.
+
+Practice 8: Break and repair a path.
+Change one href to a wrong name, see the failure, then restore it.
+This teaches why exact file names matter.
+
+Practice 9: Make the page accessible.
+Use the keyboard Tab key. Make sure every button and link can be reached.
+
+Practice 10: Keep the project organized.
+Put page structure in HTML.
+Put appearance in style.css.
+Put actions in index.js.
+Keep images inside an assets folder.
+Use clear, consistent names.
+
+============================================================
+FINAL QUICK REFERENCE
+============================================================
+
+When you want to change content:
+Open the matching .html file.
+
+When you want to change colors, spacing, fonts, or layout:
+Open front-end/style.css.
+
+When you want to change clicks, dropdowns, or search:
+Open front-end/index.js.
+
+When a link fails:
+Check the folder, filename, capitalization, and extension.
+
+When a dropdown is clipped:
+Check whether it is trapped inside an iframe or object with a small height.
+
+When two controls behave strangely:
+Check whether they share an ID or whether an event handler is being
+replaced by another handler.
+
+When a form looks correct but does not save anything:
+Remember that HTML forms need a backend server to process their data.
+
+The most important rule for this project is:
+
+Keep structure in HTML, design in CSS, and behavior in JavaScript.
+
+END OF TEXTBOOK

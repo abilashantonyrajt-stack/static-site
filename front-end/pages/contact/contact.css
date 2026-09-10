@@ -1,0 +1,277 @@
+/* ============================================
+   CONTACT PAGE STYLES (Contact.html)
+   ============================================ */
+
+@import url('../styles/variables.css');
+@import url('../styles/global.css');
+
+/* ============================================
+   CONTACT HEADER
+   ============================================ */
+
+.contact-header {
+    background: linear-gradient(135deg, var(--ink) 0%, var(--cream) 100%);
+    color: white;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+.contact-header h1 {
+    color: white;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.contact-header p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.1rem;
+}
+
+/* ============================================
+   CONTACT MAIN
+   ============================================ */
+
+.contact-main {
+    padding: 60px 20px;
+    background: white;
+}
+
+.contact-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* ============================================
+   CONTACT INFO & FORM GRID
+   ============================================ */
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+/* ============================================
+   CONTACT INFO SECTION
+   ============================================ */
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.info-block {
+    display: flex;
+    gap: 15px;
+}
+
+.info-icon {
+    font-size: 2rem;
+    min-width: 40px;
+    text-align: center;
+    color: var(--muted);
+}
+
+.info-content h3 {
+    color: var(--ink);
+    margin-bottom: 5px;
+}
+
+.info-content p {
+    color: var(--cream);
+    margin: 0;
+}
+
+.info-content a {
+    color: var(--muted);
+    text-decoration: none;
+}
+
+.info-content a:hover {
+    text-decoration: underline;
+}
+
+/* ============================================
+   CONTACT FORM
+   ============================================ */
+
+.contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.form-row.full {
+    grid-template-columns: 1fr;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group textarea {
+    padding: 12px 15px;
+    border: 2px solid var(--line);
+    border-radius: var(--radius-md);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: border-color var(--transition);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--muted);
+    outline: none;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 150px;
+}
+
+.form-message {
+    display: none;
+    padding: 12px 15px;
+    border-radius: var(--radius-md);
+    font-weight: 500;
+}
+
+.form-message.success {
+    background: #d4edda;
+    color: #155724;
+    display: block;
+}
+
+.form-message.error {
+    background: #f8d7da;
+    color: #721c24;
+    display: block;
+}
+
+/* ============================================
+   SUBMIT BUTTON
+   ============================================ */
+
+.contact-form .button {
+    background: linear-gradient(135deg, var(--ink) 0%, var(--cream) 100%);
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: var(--radius-full);
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform var(--transition), box-shadow var(--transition);
+    align-self: flex-start;
+}
+
+.contact-form .button:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+.contact-form .button.loading {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* ============================================
+   MAP SECTION
+   ============================================ */
+
+.map-section {
+    margin-top: 60px;
+    padding-top: 60px;
+    border-top: 1px solid var(--line);
+}
+
+.map-section h2 {
+    text-align: center;
+    color: var(--ink);
+    margin-bottom: 30px;
+}
+
+.map-container {
+    width: 100%;
+    height: 400px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.map-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .map-container {
+        height: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .contact-header {
+        padding: 40px 15px;
+    }
+
+    .contact-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .contact-main {
+        padding: 40px 15px;
+    }
+
+    .contact-info {
+        gap: 20px;
+    }
+
+    .map-section {
+        margin-top: 40px;
+        padding-top: 40px;
+    }
+
+    .map-container {
+        height: 250px;
+    }
+
+    .info-icon {
+        font-size: 1.5rem;
+    }
+}
