@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
 
@@ -299,3 +300,9 @@ footer {
     color: #e05c30;
 
 }
+=======
+﻿/* Page-specific styles for login.html */
+@import url('./style.css');
+
+body { min-height: 100vh; }
+>>>>>>> e44cc65c0961c7288c65660d4fe77a04f4c178d7

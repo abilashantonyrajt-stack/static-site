@@ -166,6 +166,7 @@ textarea {
 	display: grid;
 	place-items: center;
 	padding: 64px 24px;
+<<<<<<< HEAD
 	    background-image: url("image-Photoroom.png");
     background-repeat: no-repeat;
     background-size: 60000px;
@@ -184,6 +185,12 @@ textarea {
 }
 
 
+=======
+	background: linear-gradient(135deg, #fff7f1 0%, #f5e0d6 52%, #d7a58d 100%);
+	color: var(--ink);
+}
+
+>>>>>>> e44cc65c0961c7288c65660d4fe77a04f4c178d7
 .hero--facial {
 	background: linear-gradient(135deg, #fff0f0 0%, #f2c7c7 52%, #c98282 100%);
 }
@@ -286,7 +293,11 @@ textarea {
 	display: grid;
 	place-items: center;
 	padding: 24px;
+<<<<<<< HEAD
 	background: var(--background)
+=======
+	background: linear-gradient(135deg, var(--cream), var(--peach));
+>>>>>>> e44cc65c0961c7288c65660d4fe77a04f4c178d7
 }
 
 .form-card {
@@ -374,6 +385,7 @@ main{
 	align-items: center;
 }
 
+<<<<<<< HEAD
 .container{
 background: var(--background);
 
@@ -390,6 +402,8 @@ background: var(--background);
 
 }
 
+=======
+>>>>>>> e44cc65c0961c7288c65660d4fe77a04f4c178d7
 
 
 

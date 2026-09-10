@@ -9,6 +9,87 @@
     <link rel="stylesheet" href="./index.css">
 </head>
 
+<body>
+  <header class="site-header">
+    <a class="brand" href="./index.html">DA<sup>2</sup> Beauty Paradise</a>
+    <nav class="header-actions" aria-label="Main navigation">
+      <div class="dropdown">
+        <button class="dropbtn button button--light" onclick="toggleDropdown('menuDropdown')">Menu</button>
+        <div id="menuDropdown" class="dropdown-content">
+          <a href="./navigation/menu/HairStyling.html">Hair Styling</a>
+          <a href="./navigation/menu/HairTreatment.html">Hair Treatment</a>
+          <a href="./navigation/menu/Pedicure.html">Pedicure</a>
+          <a href="./navigation/menu/Manicure.html">Manicure</a>
+          <a href="./navigation/menu/Spa.html">Spa</a>
+        
+        </div>
+      </div>
+      <div class="dropdown">
+        <button class="dropbtn button button--light" onclick="toggleDropdown('profileDropdown')">Profile</button>
+        <div id="profileDropdown" class="dropdown-content">
+          <a href="./navigation/profile/picture.html">Picture</a>
+          <a href="./navigation/profile/username.html">Username</a>
+          <a href="./navigation/profile/mailinfo.html">Profile Information</a>
+          <a href="./navigation/profile/appointments.html">Appointments</a>
+          <a href="./navigation/profile/notifications.html">Notifications</a>
+          <a href="./navigation/profile/cupponcode.html">Coupon Code</a>
+          <a href="./navigation/profile/referAfriend.html">Refer a Friend</a>
+          <a href="./navigation/profile/logout.html">Logout</a>
+        </div>
+      </div>
+    </nav>
+
+
+
+  </header>
+  
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Search services..." />
+    <button onclick="find()" id="buttonsearch" class="button button--dark">Search</button>
+  </div>
+  <script src="./index.js"></script>
+
+
+
+
+  <section class="hero hero--home">
+    <div class="hero__content">
+      <p class="hero__eyebrow">Beauty, your way</p>
+      <h1>Feel good.<br>Look beautiful.</h1>
+      <p class="hero__intro">Simple beauty services made for your best days.</p>
+      <a class="button button--dark" href="./login.html">Book Now</a>
+    </div>
+  </section>
+  <nav class="quick-links" aria-label="Quick links">
+    <a href="./navigation/About_us.html">About Us</a>
+    <a href="./navigation/Contact.html">Contact</a>
+    <a href="./navigation/wish_list.html">Wish List</a>
+  </nav>
+  <footer class="site-footer">
+    <div>Social media links</div>
+    <div>Contact information</div>
+    <div>Copyright information</div>
+    <div>Privacy policy</div>
+    <div>Terms of service</div>
+    <div>FAQ</div>
+    <div>Newsletter subscription</div>
+    <div>Site map</div>
+  </footer>
+</body>
+
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DA<sup>2</sup> Beauty paradise</title>
+  <link rel="icon" type="image/x-icon" href="./favicon.ico">
+    <link rel="stylesheet" href="./index.css">
+</head>
+
 <body class="indexbody">
   <header class="site-header">
     <a class="brand" href="#footersectionscroll">DA<sup>2</sup> Beauty Paradise</a>
