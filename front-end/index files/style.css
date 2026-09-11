@@ -166,7 +166,7 @@ textarea {
 	display: grid;
 	place-items: center;
 	padding: 64px 24px;
-	    background-image: url("image-Photoroom.png");
+	background-image: url("./../four-beautiful-women-hair-coloring-260nw-2187134401-Photoroom.jpg");
     background-repeat: no-repeat;
     background-size: 60000px;
     height: 200px;
@@ -175,7 +175,7 @@ textarea {
 
 .backgroungimg {
 
-	  background-image: url("image-Photoroom.png");
+	background-image: url("./../four-beautiful-women-hair-coloring-260nw-2187134401-Photoroom.jpg");
     background-repeat: no-repeat; /* Prevents the image from repeating */
     background-size: 800px; /* Ensures the image covers the entire background */
     background-size: cover;
@@ -382,11 +382,12 @@ background: var(--background);
 
 
 .indexbody{
-    background-image: url("./../image-Photoroom.png");
+    background-image: url("./../beautiful-woman-with-long-brown-hair-curly-and-elegant-free-photo-Photoroom.png");
     background-repeat: no-repeat; /* Prevents the image from repeating */
 
     background-position-x: center;
     position: relative;
+	background-size: 1800px;
 
 }
 

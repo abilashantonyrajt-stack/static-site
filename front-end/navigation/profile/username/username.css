@@ -1,4 +1,419 @@
-﻿/* Page-specific styles for username.html */
-@import url('../../style.css');
+﻿
+:root{
+	--ink: #6f180b;
+	--muted: #e05c30;
+	--paper: #e9d1bd;
+	--cream: #bd763f;
+	--peach: #a95f3b;
+	--line: rgba(106, 28, 2, 0.18);
+	--shadow: 0 18px 45px rgba(91, 48, 35, 0.14);
+	--padding:10px;
+	--margin:10px;
+	--width: 100%;
+	--display: block;
+	--background:linear-gradient(135deg, #fff7f1 0%, #f5e0d6 52%, #d7a58d 100%);
+	--transition: 0.5s;
+}
 
-body { min-height: 100vh; }
+* {
+	box-sizing: border-box;
+	margin: 0;
+	width: 100%;
+	background: transparent;
+
+}
+.page-shell,
+.hero {
+	
+	width: 100%;
+	margin: 0;
+	transition: background-color 160ms ease;
+
+}
+html {
+	font-family: Georgia, 'Times New Roman', serif;
+	color: var(--ink);
+	background: var(--paper);
+}
+
+body {
+	margin: 0;
+	min-width: 320px;
+	background: var(--paper);
+}
+
+a {
+	color: inherit;
+}
+
+button,
+input,
+textarea {
+	font: inherit;
+	transition: all 0.5s ease;
+	background: var(--paper);
+	border-radius: 100px;
+
+}
+
+.site-header {
+	position: relative;
+	z-index: 5;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	padding: 22px 5vw;
+	background: transparent;
+	border-bottom: 1px solid var(--line);
+}
+
+.brand {
+	font-size: 1.35rem;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.brand sup {
+	font-size: 0.6em;
+}
+
+.header-actions {
+	display: flex;
+	gap: 10px;
+}
+
+.dropdown :hover::after{
+	color:#ca5454;
+	position: relative;
+	display: inline-block;
+	display: block;
+	background: transparent;
+	transition: transform 5s ease, background-color 160ms ease;
+}
+
+.button,
+.dropbtn {
+	display: inline-block;
+	border: 0;
+	padding: 12px 20px;
+	cursor: pointer;
+	text-decoration: none;
+	transition: transform 160ms ease, background-color 160ms ease;
+}
+
+.button:hover,
+.dropbtn:hover {
+	transform: translateY(-2px);
+	transition:0.5s;
+}
+
+.button--dark {
+	background: var(--ink);
+	color: var(--paper);
+}
+
+.button--light {
+	background: var(--cream);
+	color: var(--ink);
+	border: 1px solid var(--line);
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	top: calc(100% + 8px);
+	right: 0;
+	min-width: 180px;
+	overflow: hidden;
+	background: var(--paper);
+	border: 1px solid var(--line);
+	box-shadow: var(--shadow);
+}
+
+.dropdown-content a {
+	display: block;
+	padding: 12px 16px;
+	color: var(--ink);
+	text-decoration: none;
+}
+
+.dropdown-content a:hover {
+	background: var(--cream);
+}
+
+.search-bar {
+	display: flex;
+	gap: 10px;
+	max-width: 620px;
+	margin: 30px auto;
+	padding: 0 24px;
+}
+
+.search-bar input,
+.simple-form input,
+.simple-form textarea {
+	border-radius: 100px;
+	width: 100%;
+	border: 1px solid var(--line);
+	padding: 13px 14px;
+	background:linear-gradient(135deg, #fff7f1 0%, #f5e0d6 52%, #d7a58d 100%);
+	
+}
+
+.hero {
+	min-height: 100vh;
+	display: grid;
+	place-items: center;
+	padding: 64px 24px;
+	    background-image: url("image-Photoroom.png");
+    background-repeat: no-repeat;
+    background-size: 60000px;
+    height: 200px;
+	color: var(--ink);
+}
+
+.backgroungimg {
+
+	  background-image: url("image-Photoroom.png");
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    background-size: 800px; /* Ensures the image covers the entire background */
+    background-size: cover;
+
+
+}
+
+
+.hero--facial {
+	background: linear-gradient(135deg, #fff0f0 0%, #f2c7c7 52%, #c98282 100%);
+}
+
+.hero--manicure {
+	background: linear-gradient(135deg, #fff8e8 0%, #f1d39c 52%, #c58b52 100%);
+}
+
+.hero--pedicure {
+	background: linear-gradient(135deg, #eef8ff 0%, #b9dce8 52%, #6b9eae 100%);
+}
+
+.hero--spa {
+	background: linear-gradient(135deg, #f1fff5 0%, #b9dfc5 52%, #6d9d7a 100%);
+}
+
+.hero__content {
+	width: min(760px, 100%);
+	padding: 56px;
+	border: 1px solid var(--line);
+	background: rgba(255, 255, 255, 0.72);
+	box-shadow: var(--shadow);
+	text-align: center;
+}
+
+.hero__eyebrow {
+	margin: 0 0 16px;
+	font-size: 0.8rem;
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+}
+
+.hero h1 {
+	margin: 0;
+	font-size: relative(4rem);
+	line-height: relative(1.2);
+	padding: 0 0 12px;
+	border-bottom: 1px solid var(--line);
+	text-shadow: 0 0 12px rgba(255, 255, 255, 0.9), 0 0 0 var(--ink);
+}
+
+.hero__intro {
+	margin: 24px 0 36px;
+	font-size: 1.15rem;
+}
+
+.hairstyling-service {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 24px;
+	flex-wrap: wrap;
+	padding-top: 24px;
+	border-top: 1px solid var(--line);
+}
+
+.service__name,
+.service__price {
+	margin: 0;
+	font-weight: 700;
+	font-size: 40px;
+}
+
+.service__price {
+	font-size: 40px;
+}
+
+.service__button {
+	padding: 12px 20px;
+	background: rgb(10, 202, 138);
+	color: var(--paper);
+	text-decoration: none;
+	border-radius: 100px;
+}
+
+.quick-links {
+	display: flex;
+	justify-content: center;
+	gap: 28px;
+	padding: 36px 24px;
+	border-bottom: 1px solid var(--line);
+}
+
+.quick-links a {
+	text-decoration: none;
+	border-bottom: 1px solid var(--ink);
+}
+
+.site-footer {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+	gap: 12px;
+	padding: 32px 5vw;
+	color: var(--muted);
+	font-size: 0.9rem;
+}
+
+.page-shell {
+	min-height: 100vh;
+	display: grid;
+	place-items: center;
+	padding: 24px;
+	background: var(--background)
+}
+
+.form-card {
+	width: min(440px, 100%);
+	border-radius: 30px;
+	padding: 42px;
+	background: var(--paper);
+	box-shadow: var(--shadow);
+}
+
+.form-card h1 {
+	margin: 0 0 10px;
+	font-size: 2.8rem;
+}
+
+.simple-form {
+	display: grid;
+	gap: 10px;
+	margin-top: 28px;
+}
+
+.simple-form label {
+	margin-top: 8px;
+	font-weight: bold;
+}
+
+body > h1,
+body > p,
+body > form {
+	max-width: 760px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+body > h1 {
+	margin-top: 64px;
+	font-size: 3rem;
+}
+
+body > p {
+	color: var(--muted);
+	line-height: 1.7;
+}
+
+body > form {
+	padding: 28px;
+	background: var(--cream);
+}
+
+.abth1{
+		margin: auto;
+		background-origin: padding-box;
+		background:root;
+
+}
+
+.booking-container,
+.booking-header{
+	max-width: 600px;
+	margin-inline: block;
+	padding: 20px 0 100px;
+	text-align: center;
+
+}
+
+
+
+.page-shell-for-appnt{
+margin: 0;
+	min-width: 320px;
+	background: var(--background);
+
+}
+
+
+.form-card{
+	justify-content: center;
+	align-self: center;
+	align-items: var(--line);
+	align-content: center;
+
+}
+
+main{
+	align-items: center;
+}
+
+.container{
+background: var(--background);
+
+
+}
+
+
+.indexbody{
+    background-image: url("./../image-Photoroom.png");
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+
+    background-position-x: center;
+    position: relative;
+
+}
+
+@media (max-width: 560px) {
+	.site-header {
+		flex-wrap: wrap;
+	}
+
+	.brand {
+		width: 100%;
+	}
+
+	.hero__content {
+		padding: 36px 24px;
+	}
+
+	.search-bar,
+	.quick-links {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.quick-links a {
+		width: fit-content;
+	}
+
+	.form-card {
+		padding: 30px 24px;
+	}
+}
