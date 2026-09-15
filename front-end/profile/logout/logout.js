@@ -260,7 +260,7 @@ const ProfilePage = {
         const confirmButton = document.querySelector('.confirm-logout');
         if (confirmButton) {
             confirmButton.addEventListener('click', () => {
-                APP.remove('user_session');
+                APP.clearSession();
                 APP.notify('Logged out successfully', 'success');
                 setTimeout(() => {
                     window.location.href = '../../pages/home/index.html';

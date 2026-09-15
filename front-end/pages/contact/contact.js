@@ -38,7 +38,7 @@ const ContactPage = {
     /**
      * Handle form submission
      */
-    handleSubmit() {
+    async handleSubmit() {
         const form = document.querySelector('.contact-form');
         const nameInput = form.querySelector('input[name="name"]');
         const emailInput = form.querySelector('input[name="email"]');
@@ -69,27 +69,21 @@ const ContactPage = {
             timestamp: new Date().toISOString()
         };
 
-        // Simulate sending message
-        setTimeout(() => {
-            // Store message in localStorage
-            const messages = APP.retrieve('contact_messages') || [];
-            messages.push(contactData);
-            APP.store('contact_messages', messages);
+        try {
+            await APP.request(APP.apiUrl('/api/contact'), {
+                method: 'POST',
+                body: contactData
+            });
 
-            // Reset form
             form.reset();
-
-            // Show success message
             this.showMessage('Thank you! Your message has been sent successfully.', 'success');
-
-            // Reset button
+        } catch (error) {
+            this.showMessage(error.message || 'Could not send message. Is the backend running?', 'error');
+        } finally {
             button.classList.remove('loading');
             button.disabled = false;
             button.textContent = 'Send Message';
-
-            // Log to console
-            console.log('Message stored:', contactData);
-        }, 1500);
+        }
     },
 
     /**

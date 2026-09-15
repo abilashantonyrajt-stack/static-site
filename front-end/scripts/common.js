@@ -7,6 +7,35 @@
  */
 const APP = {
     /**
+     * API origin. Same host when Express serves the site; localhost when opening files directly.
+     */
+    apiBase: (window.location.protocol === 'file:' || window.location.port === '5500')
+        ? 'http://localhost:3000'
+        : '',
+
+    apiUrl(path) {
+        return `${this.apiBase}${path}`;
+    },
+
+    getToken() {
+        return localStorage.getItem('token');
+    },
+
+    setSession(token, user) {
+        if (token) {
+            localStorage.setItem('token', token);
+        }
+        if (user) {
+            this.store('user_session', user);
+        }
+    },
+
+    clearSession() {
+        localStorage.removeItem('token');
+        this.remove('user_session');
+    },
+
+    /**
      * Initialize application
      */
     init() {
@@ -208,24 +237,29 @@ const APP = {
      * @returns {Promise}
      */
     async request(url, options = {}) {
-        try {
-            const response = await fetch(url, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    ...options.headers
-                },
-                ...options
-            });
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
-            return await response.json();
-        } catch (error) {
-            console.error('Request error:', error);
-            throw error;
+        const headers = {
+            'Content-Type': 'application/json',
+            ...(options.headers || {})
+        };
+        const token = this.getToken();
+        if (token && !headers.Authorization) {
+            headers.Authorization = `Bearer ${token}`;
         }
+
+        const fetchOptions = { ...options, headers };
+        if (fetchOptions.body && typeof fetchOptions.body === 'object' && !(fetchOptions.body instanceof FormData)) {
+            fetchOptions.body = JSON.stringify(fetchOptions.body);
+        }
+
+        const response = await fetch(url, fetchOptions);
+        const data = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+            const message = data.error || `HTTP error! status: ${response.status}`;
+            throw new Error(message);
+        }
+
+        return data;
     }
 };
 

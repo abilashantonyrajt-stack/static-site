@@ -24,7 +24,9 @@ let state = {
     selectedService: null,
     selectedDate: null,
     selectedTime: null,
-    appointments: []
+    appointments: [],
+    bookedTimes: [],
+    editingId: null
 };
 
 // ============================================
@@ -33,15 +35,19 @@ let state = {
 
 document.addEventListener('DOMContentLoaded', () => {
     initializeApp();
-    renderServices();
-    setupEventListeners();
-    loadAppointmentsFromStorage();
-    setMinDate();
-    displayAppointments();
 });
 
-function initializeApp() {
-    state.appointments = JSON.parse(localStorage.getItem('appointments')) || [];
+async function initializeApp() {
+    if (!APP.getToken()) {
+        window.location.href = '../../../login/login.html';
+        return;
+    }
+
+    renderServices();
+    setupEventListeners();
+    setMinDate();
+    await loadAppointmentsFromStorage();
+    displayAppointments();
 }
 
 function setupEventListeners() {
@@ -51,8 +57,9 @@ function setupEventListeners() {
     });
 
     // Date input
-    document.getElementById('appointmentDate').addEventListener('change', (e) => {
+    document.getElementById('appointmentDate').addEventListener('change', async (e) => {
         state.selectedDate = e.target.value;
+        await loadBookedSlots(state.selectedDate);
         renderTimeSlots();
         updateBookingSummary();
     });
@@ -141,7 +148,7 @@ function renderTimeSlots() {
         return;
     }
 
-    const bookedTimes = getBookedTimesForDate(state.selectedDate);
+    const bookedTimes = state.bookedTimes;
 
     slotsContainer.innerHTML = TIME_SLOTS.map(time => `
         <button 
@@ -170,9 +177,24 @@ function selectTime(time, element) {
     updateBookingSummary();
 }
 
+async function loadBookedSlots(date) {
+    if (!date) {
+        state.bookedTimes = [];
+        return;
+    }
+    try {
+        const exclude = state.editingId ? `&excludeId=${encodeURIComponent(state.editingId)}` : '';
+        const data = await APP.request(APP.apiUrl(`/api/appointments/slots?date=${encodeURIComponent(date)}${exclude}`));
+        state.bookedTimes = data.booked || [];
+    } catch (error) {
+        console.error(error);
+        state.bookedTimes = getBookedTimesForDate(date);
+    }
+}
+
 function getBookedTimesForDate(date) {
     return state.appointments
-        .filter(apt => apt.date === date && apt.status !== 'cancelled')
+        .filter(apt => apt.date === date && apt.status !== 'cancelled' && apt.id !== state.editingId)
         .map(apt => apt.time);
 }
 
@@ -227,8 +249,7 @@ function updateBookingSummary() {
 // FORM SUBMISSION
 // ============================================
 
-function handleBookingSubmit() {
-    // Validate all required fields
+async function handleBookingSubmit() {
     if (!state.selectedService || !state.selectedDate || !state.selectedTime) {
         showErrorMessage('Please fill in all required fields');
         return;
@@ -248,30 +269,39 @@ function handleBookingSubmit() {
         return;
     }
 
-    // Create appointment object
-    const appointment = {
-        id: generateId(),
+    const payload = {
         service: state.selectedService,
         date: state.selectedDate,
         time: state.selectedTime,
         duration: document.getElementById('duration').value,
-        fullName: fullName,
-        email: email,
-        phone: phone,
-        notes: document.getElementById('notes').value.trim(),
-        status: 'upcoming',
-        createdAt: new Date().toISOString()
+        fullName,
+        email,
+        phone,
+        notes: document.getElementById('notes').value.trim()
     };
 
-    // Save appointment
-    state.appointments.push(appointment);
-    saveAppointmentsToStorage();
+    try {
+        let appointment;
+        if (state.editingId) {
+            appointment = await APP.request(APP.apiUrl(`/api/appointments/${state.editingId}`), {
+                method: 'PATCH',
+                body: payload
+            });
+            state.appointments = state.appointments.map((apt) => apt.id === appointment.id ? appointment : apt);
+            state.editingId = null;
+        } else {
+            appointment = await APP.request(APP.apiUrl('/api/appointments'), {
+                method: 'POST',
+                body: payload
+            });
+            state.appointments.push(appointment);
+        }
 
-    // Show success message
-    showSuccessMessage(appointment);
-
-    // Reset form
-    setTimeout(resetForm, 2000);
+        showSuccessMessage(appointment);
+        setTimeout(resetForm, 2000);
+    } catch (error) {
+        showErrorMessage(error.message || 'Could not save appointment');
+    }
 }
 
 function showErrorMessage(message) {
@@ -313,6 +343,8 @@ function resetForm() {
     state.selectedService = null;
     state.selectedDate = null;
     state.selectedTime = null;
+    state.editingId = null;
+    state.bookedTimes = [];
     
     updateBookingSummary();
 }
@@ -349,7 +381,7 @@ function displayAppointments() {
 }
 
 function createAppointmentCard(apt) {
-    const service = SERVICES.find(s => s.id === apt.service);
+    const service = SERVICES.find(s => s.id === apt.service) || { emoji: '', name: apt.service, price: '' };
     const dateObj = new Date(apt.date);
     const formattedDate = dateObj.toLocaleDateString('en-US', { 
         weekday: 'short', 
@@ -414,64 +446,61 @@ function createAppointmentCard(apt) {
 // EDIT & CANCEL APPOINTMENTS
 // ============================================
 
-function editAppointment(aptId) {
+async function editAppointment(aptId) {
     const apt = state.appointments.find(a => a.id === aptId);
     if (!apt) return;
 
-    // Populate form with appointment data
+    state.editingId = aptId;
     document.getElementById('appointmentDate').value = apt.date;
-    document.getElementById('appointmentDate').dispatchEvent(new Event('change'));
-    
-    setTimeout(() => {
-        const timeBtn = document.querySelector(`[data-time="${apt.time}"]`);
-        if (timeBtn) {
-            timeBtn.click();
-        }
-        
-        document.getElementById('fullName').value = apt.fullName;
-        document.getElementById('email').value = apt.email;
-        document.getElementById('phone').value = apt.phone;
-        document.getElementById('duration').value = apt.duration;
-        document.getElementById('notes').value = apt.notes;
+    state.selectedDate = apt.date;
+    await loadBookedSlots(apt.date);
+    renderTimeSlots();
 
-        const serviceCard = document.querySelector(`[data-service-id="${apt.service}"]`);
-        if (serviceCard) {
-            serviceCard.click();
-        }
+    const timeBtn = document.querySelector(`[data-time="${apt.time}"]`);
+    if (timeBtn) {
+        timeBtn.click();
+    }
 
-        switchTab('booking');
-        document.querySelector('.appointment-form').scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('fullName').value = apt.fullName;
+    document.getElementById('email').value = apt.email;
+    document.getElementById('phone').value = apt.phone;
+    document.getElementById('duration').value = apt.duration;
+    document.getElementById('notes').value = apt.notes || '';
 
-        // Remove old appointment
-        state.appointments = state.appointments.filter(a => a.id !== aptId);
-        saveAppointmentsToStorage();
-    }, 100);
+    const serviceCard = document.querySelector(`[data-service-id="${apt.service}"]`);
+    if (serviceCard) {
+        serviceCard.click();
+    }
+
+    switchTab('booking');
+    document.querySelector('.appointment-form').scrollIntoView({ behavior: 'smooth' });
 }
 
-function cancelAppointment(aptId) {
+async function cancelAppointment(aptId) {
     if (!confirm('Are you sure you want to cancel this appointment?')) return;
 
-    const apt = state.appointments.find(a => a.id === aptId);
-    if (apt) {
-        apt.status = 'cancelled';
-        saveAppointmentsToStorage();
+    try {
+        const updated = await APP.request(APP.apiUrl(`/api/appointments/${aptId}/cancel`), {
+            method: 'PATCH'
+        });
+        state.appointments = state.appointments.map((apt) => apt.id === aptId ? updated : apt);
         displayAppointments();
-
-        // Show confirmation
-        alert('Appointment cancelled successfully. A cancellation confirmation has been sent to your email.');
+        alert('Appointment cancelled successfully.');
+    } catch (error) {
+        alert(error.message || 'Could not cancel appointment');
     }
 }
 
-// ============================================
-// STORAGE MANAGEMENT
-// ============================================
-
-function saveAppointmentsToStorage() {
-    localStorage.setItem('appointments', JSON.stringify(state.appointments));
-}
-
-function loadAppointmentsFromStorage() {
-    state.appointments = JSON.parse(localStorage.getItem('appointments')) || [];
+async function loadAppointmentsFromStorage() {
+    try {
+        state.appointments = await APP.request(APP.apiUrl('/api/appointments'));
+    } catch (error) {
+        console.error(error);
+        state.appointments = [];
+        if (String(error.message).toLowerCase().includes('log in') || String(error.message).includes('401')) {
+            window.location.href = '../../../login/login.html';
+        }
+    }
 }
 
 // ============================================

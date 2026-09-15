@@ -11,18 +11,31 @@
 <body class="page-shell">
     <main class="form-card">
         <p class="hero__eyebrow">DA2 Beauty Paradise</p>
-        <h1>Welcome back</h1>
-        <p>Log in to book your next beauty appointment.</p>
-        <form class="simple-form" action="/login" method="post">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
+        <h1 id="authTitle">Welcome back</h1>
+        <p id="authSubtitle">Log in to book your next beauty appointment.</p>
+        <p id="authMessage" class="form-message" hidden></p>
+        <form class="simple-form" id="authForm">
+            <label for="name" id="nameLabel" hidden>Name:</label>
+            <input type="text" id="name" name="name" hidden>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-            <button class="button button--dark" type="submit">Login</button>
+            <input type="password" id="password" name="password" required minlength="6">
+
+            <label class="remember-me">
+                <input type="checkbox" id="rememberMe"> Remember email
+            </label>
+
+            <button class="button button--dark" type="submit" id="authSubmit">Login</button>
         </form>
+        <p>
+            <button type="button" class="button button--light" id="authToggle">Need an account? Register</button>
+        </p>
     </main>
     <script src="./../scripts/common.js"></script>
     <script src="./../scripts/header.js"></script>
-    <script src="./../login/login.js"></script>
+    <script src="./login.js"></script>
 </body>
 </html>

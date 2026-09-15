@@ -92,27 +92,34 @@ const LoginPage = {
         loginButton.textContent = 'Logging in...';
 
         // Simulate login process
-        setTimeout(() => {
-            // Store email if remember me is checked
-            if (rememberMe && rememberMe.checked) {
-                APP.store('remembered_email', emailInput.value);
-            } else {
-                APP.remove('remembered_email');
+        setTimeout(async () => {
+            try {
+                const result = await APP.request(APP.apiUrl('/api/auth/login'), {
+                    method: 'POST',
+                    body: {
+                        email: emailInput.value,
+                        password: passwordInput.value
+                    }
+                });
+
+                if (rememberMe && rememberMe.checked) {
+                    APP.store('remembered_email', emailInput.value);
+                } else {
+                    APP.remove('remembered_email');
+                }
+
+                APP.setSession(result.token, result.user);
+                APP.notify('Login successful! Redirecting...', 'success');
+                setTimeout(() => {
+                    window.location.href = '../../index files/index.html';
+                }, 1500);
+            } catch (error) {
+                APP.notify(error.message || 'Login failed', 'error');
+                loginButton.classList.remove('loading');
+                loginButton.disabled = false;
+                loginButton.textContent = 'Log in';
             }
-
-            // Store user session
-            APP.store('user_session', {
-                email: emailInput.value,
-                loginTime: new Date().toISOString()
-            });
-
-            APP.notify('Login successful! Redirecting...', 'success');
-
-            // Redirect after short delay
-            setTimeout(() => {
-                window.location.href = '../home/index.html';
-            }, 1500);
-        }, 1000);
+        }, 300);
     },
 
     /**
