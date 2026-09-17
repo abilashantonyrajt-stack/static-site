@@ -7,3 +7,4 @@ backend/*.db-shm
 backend/*.db-wal
 .env
 /tmp/salon.db
+.vercel
