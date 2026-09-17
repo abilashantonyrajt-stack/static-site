@@ -4,9 +4,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DA<sup>2</sup> Beauty paradise</title>
+  <title>DA² Beauty Paradise — Editorial Luxury Salon</title>
+  <meta name="description" content="DA² Beauty Paradise — bespoke hair, spa and beauty rituals. Book your glow.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="stylesheet" href="style.css">
-  </link>
 </head>
 
 <body class="indexbody">
@@ -25,38 +26,57 @@
 
   <section class="hero hero--home">
     <div class="hero__content">
-      <!-- LEFT: headline like Image 1 -->
       <div>
-        <p class="hero__eyebrow">DA² Beauty Paradise</p>
-        <h1>Find the perfect complement to your beauty</h1>
-        <p class="hero__intro">We will help you find treatments that match your needs and style. Check our salon menu and surround yourself with glow!</p>
-        <a class="button button--dark" href="./navigation/profile/appointments/appointments.html">Book Appointment</a>
-        <p class="mini-label">Primary Colors</p>
-        <div class="color-row">
-          <div class="color-dot dot-green"></div>
-          <div class="color-dot dot-gold"></div>
-          <div class="color-dot dot-brown"></div>
+        <p class="hero__eyebrow">Est. 2024 — Kothanur, Bengaluru</p>
+        <h1>Find the <em>perfect</em> complement to your beauty</h1>
+        <p class="hero__intro">Bespoke treatments, quiet luxury. From hydrating hair spa to signature facials — curated for her glow.</p>
+        <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:6px">
+          <a class="button button--dark" href="./navigation/profile/appointments/appointments.html">Book Appointment — ₹1,999</a>
+          <a class="button button--light" href="./navigation/menu/Menu.HTML">Explore Menu</a>
+        </div>
+        <p class="mini-label">Atelier palette</p>
+        <div class="color-row" aria-hidden="true">
+          <div class="color-dot dot-green" title="Sage"></div>
+          <div class="color-dot dot-gold" title="Champagne"></div>
+          <div class="color-dot dot-brown" title="Espresso"></div>
+          <span style="align-self:center; margin-left:8px; font-size:0.82rem; color:var(--muted); letter-spacing:0.04em">Sage • Champagne • Espresso</span>
         </div>
       </div>
-      <!-- RIGHT: 2 mini glass cards like Image 1 -->
       <div class="hero__cards">
         <div class="mini-card">
-          <h3>Hair Spa <span class="price" style="float:right">$45</span></h3>
+          <h3>Hair Spa <span class="price">₹1,999</span></h3>
           <img src="./hairstyle1.png" alt="Hair service" onerror="this.style.display='none'">
-          <div class="pill">✦ Glow • Hair • Nails</div>
+          <div class="pill">✦ Hydrate • Repair • Shine</div>
         </div>
         <div class="mini-card">
-          <h3>Beauty Product</h3>
+          <h3>Signature Facial <span class="price">₹2,400</span></h3>
           <img src="./image-Photoroom.png" alt="Beauty" onerror="this.style.display='none'">
-          <div class="pill">▶ Book Facial</div>
+          <div class="pill">● 50% off — first visit</div>
         </div>
       </div>
     </div>
   </section>
+
+  <section style="max-width:1180px; margin:0 auto; padding:0 4vw 18px; display:grid; grid-template-columns:repeat(3,1fr); gap:14px">
+    <div style="background:var(--glass); border:1px solid var(--line); border-radius:18px; padding:18px; backdrop-filter:blur(14px)">
+      <div style="font-family:'Cormorant Garamond',serif; font-size:1.25rem; font-weight:600">4.9 / 5</div>
+      <div style="font-size:0.88rem; color:var(--muted)">2,400+ women rated — hydrating spa</div>
+    </div>
+    <div style="background:var(--glass); border:1px solid var(--line); border-radius:18px; padding:18px; backdrop-filter:blur(14px)">
+      <div style="font-family:'Cormorant Garamond',serif; font-size:1.25rem; font-weight:600">Bagalur Road, Kothanur</div>
+      <div style="font-size:0.88rem; color:var(--muted)">Marie Claire Paris salon — wash + blow-dry included</div>
+    </div>
+    <div style="background:var(--glass); border:1px solid var(--line); border-radius:18px; padding:18px; backdrop-filter:blur(14px)">
+      <div style="font-family:'Cormorant Garamond',serif; font-size:1.25rem; font-weight:600">By appointment</div>
+      <div style="font-size:0.88rem; color:var(--muted)">09:00 — 18:00 • instant confirmation</div>
+    </div>
+  </section>
+
   <nav class="quick-links" aria-label="Quick links">
-    <a href="./navigation/About_Us.HTML">About Us</a>
+    <a href="./navigation/About_Us.HTML">About</a>
+    <a href="./navigation/menu/Menu.HTML">Services</a>
     <a href="./contacts/contact.html">Contact</a>
-    <a href="./navigation/Wish_list.HTML">Wish List</a>
+    <a href="./navigation/Wish_list.HTML">Wishlist</a>
   </nav>
 
   <!-- Footer will be injected by index.js -->

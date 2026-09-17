@@ -69,42 +69,34 @@ document.addEventListener("DOMContentLoaded", function() {
       <a class="brand" href="${basePath}index.html">DA<sup>2</sup> Beauty Paradise</a>
       <nav class="header-actions" aria-label="Main navigation">
         <div class="dropdown">
-          <button class="dropbtn button button--light" onclick="toggleDropdown('menuDropdown')">Menu</button>
+          <button class="dropbtn button button--light" onclick="toggleDropdown('menuDropdown')">Services ▾</button>
           <div id="menuDropdown" class="dropdown-content">
             <a href="${basePath}navigation/menu/hairstyling/HairStyling.html">Hair Styling</a>
             <a href="${basePath}navigation/menu/hairtreatment/HairTreatment.html">Hair Treatment</a>
             <a href="${basePath}navigation/menu/pedicure/Pedicure.html">Pedicure</a>
             <a href="${basePath}navigation/menu/manicure/Manicure.html">Manicure</a>
-            <a href="${basePath}navigation/menu/spa/Spa.html">Spa</a>
+            <a href="${basePath}navigation/menu/spa/Spa.html">Spa & Facial</a>
           </div>
         </div>
+        <a class="button button--light" href="${basePath}login/login.html" style="padding:10px 18px; font-size:0.88rem">Sign in</a>
+        <a class="button button--dark" href="${basePath}navigation/profile/appointments/appointments.html" style="padding:10px 18px; font-size:0.88rem">Book</a>
         <div class="dropdown">
-          <button class="dropbtn button button--light" onclick="toggleDropdown('profileDropdown')">Profile</button>
+          <button class="dropbtn button button--light" onclick="toggleDropdown('profileDropdown')" aria-label="Profile">☰</button>
           <div id="profileDropdown" class="dropdown-content">
-            <a href="${basePath}navigation/profile/picture/picture.html">Picture</a>
-            <a href="${basePath}navigation/profile/username/username.html">Username</a>
-            <a href="${basePath}navigation/profile/mail-info/mailinfo.html">Profile Information</a>
-            <a href="${basePath}navigation/profile/appointments/appointments.html">Appointments</a>
+            <a href="${basePath}navigation/profile/appointments/appointments.html">My Appointments</a>
+            <a href="${basePath}navigation/profile/mail-info/mailinfo.html">Profile</a>
             <a href="${basePath}navigation/profile/notifications/notifications.html">Notifications</a>
-            <a href="${basePath}navigation/profile/cuppon-code/cupponcode.html">Coupon Code</a>
-            <a href="${basePath}navigation/profile/refer-a-friend/referAfriend.html">refer-a-friend</a>
-            <a href="${basePath}navigation/profile/logout/logout.html">Logout</a>
+            <a href="${basePath}login/login.html">Sign out</a>
           </div>
         </div>
       </nav>
     </header>`;
 
     const footerHTML = `
-    <hr>
     <footer class="site-footer">
-      <div>Social media links</div>
-      <div>Contact information</div>
-      <div>Copyright information</div>
-      <div>Privacy policy</div>
-      <div>Terms of service</div>
-      <div>FAQ</div>
-      <div>Newsletter subscription</div>
-      <div>Site map</div>
+      <div>© 2026 DA² Beauty Paradise — Kothanur, Bengaluru</div>
+      <div><a href="${basePath}navigation/About_Us.HTML" style="color:inherit; text-decoration:none; border-bottom:1px solid var(--gold-line)">About</a> · <a href="${basePath}contacts/contact.html" style="color:inherit; text-decoration:none; border-bottom:1px solid var(--gold-line)">Contact</a></div>
+      <div style="opacity:0.7">By appointment • 09:00–18:00 • Private atelier</div>
     </footer>`;
 
     // Inject header at the top of the body
