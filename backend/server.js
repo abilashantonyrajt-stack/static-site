@@ -178,6 +178,12 @@ app.get('/api/appointments', authRequired, (req, res) => {
 });
 
 app.post('/api/appointments', authRequired, (req, res) => {
+  // Stale token after redeploy (ephemeral /tmp DB reset) → user no longer exists
+  const authedUser = db.prepare('SELECT id FROM users WHERE id = ?').get(req.user.id);
+  if (!authedUser) {
+    return res.status(401).json({ error: 'Session expired after update — please log in again' });
+  }
+
   const body = req.body || {};
   const service = String(body.service || '').trim();
   const date = String(body.date || '').trim();
@@ -250,6 +256,9 @@ app.post('/api/appointments', authRequired, (req, res) => {
   } catch (error) {
     if (String(error.message).includes('UNIQUE')) {
       return res.status(409).json({ error: 'That time slot is already booked' });
+    }
+    if (String(error.message).includes('FOREIGN KEY')) {
+      return res.status(401).json({ error: 'Session expired after update — please log out and log in again' });
     }
     throw error;
   }
