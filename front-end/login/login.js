@@ -92,7 +92,7 @@ const LoginPage = {
             }
 
             this.showMessage('Success! Redirecting...', 'success');
-            window.location.href = '../index files/index.html';
+            window.location.href = '../../index.html';
         } catch (error) {
             this.showMessage(error.message || 'Could not reach the server. Start it with npm start in backend/.', 'error');
             button.disabled = false;

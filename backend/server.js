@@ -348,7 +348,11 @@ app.use((err, _req, res, _next) => {
   res.status(500).json({ error: 'Server error' });
 });
 
-app.listen(PORT, () => {
-  console.log(`DA2 Beauty Paradise API running at http://localhost:${PORT}`);
-  console.log(`Open http://localhost:${PORT}/index%20files/index.html`);
-});
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`DA2 Beauty Paradise API running at http://localhost:${PORT}`);
+    console.log(`Open http://localhost:${PORT}/`);
+  });
+}
+
+module.exports = app;

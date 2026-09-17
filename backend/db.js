@@ -1,7 +1,13 @@
 const path = require('path');
+const os = require('os');
 const { DatabaseSync } = require('node:sqlite');
 
-const db = new DatabaseSync(path.join(__dirname, 'salon.db'));
+// Vercel's filesystem is read-only except /tmp — use tmpdir there so SQLite can write.
+// Locally we keep salon.db next to db.js for persistence.
+const dbPath = process.env.VERCEL
+  ? path.join(os.tmpdir(), 'salon.db')
+  : path.join(__dirname, 'salon.db');
+const db = new DatabaseSync(dbPath);
 db.exec('PRAGMA journal_mode = WAL');
 db.exec('PRAGMA foreign_keys = ON');
 
