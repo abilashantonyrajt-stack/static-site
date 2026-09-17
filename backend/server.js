@@ -19,9 +19,22 @@ const TIME_SLOTS = [
 
 app.use(cors());
 app.use(express.json());
+
+// Legacy alias: /profile/... was the screenshot 404 — canonical is /navigation/profile/...
+// Also handle duplicate folder front-end/profile vs front-end/navigation/profile
+app.use((req, _res, next) => {
+  if (req.path.startsWith('/profile/')) {
+    req.url = '/navigation' + req.url;
+  } else if (req.path === '/profile' ) {
+    req.url = '/navigation/profile/Profile.HTML';
+  }
+  next();
+});
 app.use(express.static(FRONT_END));
 // Alias so absolute /front-end/... paths (Live Server style) also work on Express
 app.use('/front-end', express.static(FRONT_END));
+// Also expose navigation profile at /profile for backwards compat
+app.use('/profile', express.static(path.join(FRONT_END, 'navigation/profile')));
 
 function publicUser(row) {
   return { id: row.id, email: row.email, name: row.name };

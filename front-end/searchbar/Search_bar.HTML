@@ -1,7 +1,29 @@
-﻿<link rel="stylesheet" href="./search-bar.css">
-
-
-    <script src="./search-bar.js"></script>
-
-
-
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Search — DA² Beauty Paradise</title>
+  <link rel="stylesheet" href="./search-bar.css">
+</head>
+<body class="page-shell">
+  <main class="form-card" style="max-width:640px">
+    <p class="hero__eyebrow">Search</p>
+    <h1 style="font-family:'Cormorant Garamond',serif; font-size:1.9rem; font-weight:600">Find your service</h1>
+    <div class="search-bar" style="margin:16px 0 0 0; max-width:none; padding:0">
+      <input type="text" id="searchInput" placeholder="Try: hair, facial, spa..." />
+      <button onclick="find()" class="button button--dark">Search</button>
+    </div>
+    <div style="margin-top:18px; display:flex; flex-wrap:wrap; gap:8px">
+      <a class="button button--light" href="/navigation/menu/hairstyling/HairStyling.html">Hair Styling</a>
+      <a class="button button--light" href="/navigation/menu/facial/facial.html">Facial</a>
+      <a class="button button--light" href="/navigation/menu/spa/Spa.html">Spa</a>
+      <a class="button button--light" href="/navigation/menu/manicure/Manicure.html">Manicure</a>
+      <a class="button button--light" href="/navigation/menu/pedicure/Pedicure.html">Pedicure</a>
+    </div>
+  </main>
+  <script src="../scripts/common.js"></script>
+  <script src="../index.js"></script>
+  <script src="./search-bar.js"></script>
+</body>
+</html>

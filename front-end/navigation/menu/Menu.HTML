@@ -1,15 +1,39 @@
-﻿    <link rel="stylesheet" href="./menu.css">
-<div class="dropdown">
-  <button class="dropbtn button button--light" onclick="toggleDropdown('myDropdown')">Menu</button>
-  <div id="myDropdown" class="dropdown-content">
-    <a href="./HairStyling.html" target="_top">Hair Styling</a>
-    <a href="./HairTreatment.html" target="_top">Hair Treatment</a>
-    <a href="./Pedicure.html" target="_top">Pedicure</a>
-    <a href="./Manicure.html" target="_top">Manicure</a>
-    <a href="./Spa.html" target="_top">spa</a>
-  </div>
-</div>
-<script src="../../index.js"></script>
-
-    <script src="./menu.js"></script>
-
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Services — DA² Beauty Paradise</title>
+  <link rel="stylesheet" href="./menu.css">
+</head>
+<body class="page-shell">
+  <main class="appointments-container" style="max-width:900px">
+    <h1 style="font-family:'Cormorant Garamond',serif; font-size:2.15rem; font-weight:600">Our Services</h1>
+    <p style="color:var(--muted); margin:8px 0 20px">Choose your ritual — hair, spa, nails and glow.</p>
+    <div class="service-grid" style="margin-top:16px">
+      <a class="service-card" href="./hairstyling/HairStyling.html" style="text-decoration:none">
+        <div class="service-emoji">💇</div><div class="service-name">Hair Styling</div><div class="service-price">$50</div>
+      </a>
+      <a class="service-card" href="./hairtreatment/HairTreatment.html" style="text-decoration:none">
+        <div class="service-emoji">💆</div><div class="service-name">Hair Treatment</div><div class="service-price">$60</div>
+      </a>
+      <a class="service-card" href="./facial/facial.html" style="text-decoration:none">
+        <div class="service-emoji">✨</div><div class="service-name">Facial</div><div class="service-price">$55</div>
+      </a>
+      <a class="service-card" href="./manicure/Manicure.html" style="text-decoration:none">
+        <div class="service-emoji">💅</div><div class="service-name">Manicure</div><div class="service-price">$35</div>
+      </a>
+      <a class="service-card" href="./pedicure/Pedicure.html" style="text-decoration:none">
+        <div class="service-emoji">👣</div><div class="service-name">Pedicure</div><div class="service-price">$40</div>
+      </a>
+      <a class="service-card" href="./spa/Spa.html" style="text-decoration:none">
+        <div class="service-emoji">🧖</div><div class="service-name">Spa</div><div class="service-price">$75</div>
+      </a>
+    </div>
+    <a class="button button--dark" href="/navigation/profile/appointments/appointments.html" style="margin-top:18px; width:100%">Book Appointment</a>
+  </main>
+  <script src="../../scripts/common.js"></script>
+  <script src="../../index.js"></script>
+  <script src="./menu.js"></script>
+</body>
+</html>

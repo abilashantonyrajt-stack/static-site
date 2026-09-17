@@ -1,17 +1,30 @@
-    <link rel="stylesheet" href="./profile.css">
-<div class="dropdown">
-  <button class="dropbtn button button--light" onclick="toggleDropdown('myDropdown')">Profile</button>
-  <div id="myDropdown" class="dropdown-content">
-    <a href="./navigation/Profile/Picture.html">img</a>
-    <a href="./navigation/Profile/username.html">username</a>
-    <a href="./navigation/profile/mailinfo.html">Profile Information</a>
-    <a href="./appointments.html">Appointments</a>
-    <a href="./navigation/profile/notifications.html">Notifications</a>
-    <a href="./navigation/profile/coupon code.html">Coupon Code</a>
-    <a href="./navigation/profile/referAFriend.html">refer-a-friend</a>
-    <a href="./navigation/profile/logout.html">Logout</a>
-  </div>
-</div>
-<script src="../../index.js"></script>
-    <script src="./profile.js"></script>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile — DA² Beauty Paradise</title>
+  <link rel="stylesheet" href="./profile.css">
+</head>
+<body class="page-shell">
+  <main class="form-card" style="max-width:520px">
+    <p class="hero__eyebrow">Private atelier</p>
+    <h1 style="font-family:'Cormorant Garamond',serif; font-size:1.9rem; font-weight:600">Your Profile</h1>
+    <p style="color:var(--muted); margin-top:6px">Manage your account and bookings.</p>
+    <div style="display:grid; gap:10px; margin-top:20px">
+      <a class="button button--light" href="./appointments/appointments.html">My Appointments</a>
+      <a class="button button--light" href="./mail-info/mailinfo.html">Profile Information</a>
+      <a class="button button--light" href="./username/username.html">Username</a>
+      <a class="button button--light" href="./picture/picture.html">Picture</a>
+      <a class="button button--light" href="./notifications/notifications.html">Notifications</a>
+      <a class="button button--light" href="./whishlist/whishlist.html">Wishlist</a>
+      <a class="button button--light" href="./cuppon-code/cupponcode.html">Coupon Code</a>
+      <a class="button button--light" href="./refer-a-friend/referAfriend.html">Refer a Friend</a>
+      <a class="button button--dark" href="/login/login.html">Sign out</a>
+    </div>
+  </main>
+  <script src="../../scripts/common.js"></script>
+  <script src="../../index.js"></script>
+  <script src="./profile.js"></script>
+</body>
+</html>
