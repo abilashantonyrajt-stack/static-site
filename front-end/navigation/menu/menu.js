@@ -1,4 +1,4 @@
-﻿// Page-specific behavior for Menu.HTML
+// Page-specific behavior for Menu.HTML
 if (!document.querySelector('script[data-shared-script]')) {
   const sharedScript = document.createElement('script');
   sharedScript.src = '../../index.js';
@@ -6,3 +6,4 @@ if (!document.querySelector('script[data-shared-script]')) {
   document.head.appendChild(sharedScript);
 }
 document.body.dataset.page = 'menu';
+

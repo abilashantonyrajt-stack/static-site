@@ -20,6 +20,8 @@ const TIME_SLOTS = [
 app.use(cors());
 app.use(express.json());
 app.use(express.static(FRONT_END));
+// Alias so absolute /front-end/... paths (Live Server style) also work on Express
+app.use('/front-end', express.static(FRONT_END));
 
 function publicUser(row) {
   return { id: row.id, email: row.email, name: row.name };
@@ -335,7 +337,7 @@ app.post('/api/contact', (req, res) => {
 });
 
 app.get('/', (_req, res) => {
-  res.sendFile(path.join(FRONT_END, 'index files', 'index.html'));
+  res.sendFile(path.join(FRONT_END, 'index.html'));
 });
 
 app.use((err, _req, res, _next) => {

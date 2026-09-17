@@ -1,4 +1,10 @@
-﻿document.body.dataset.page = 'logout';
+if (!document.querySelector('script[data-shared-script]')) {
+  const sharedScript = document.createElement('script');
+  sharedScript.src = '../../../index.js';
+  sharedScript.dataset.sharedScript = 'true';
+  document.head.appendChild(sharedScript);
+}
+document.body.dataset.page = 'logout';
 
 document.addEventListener('DOMContentLoaded', () => {
     if (window.APP && APP.clearSession) {
@@ -15,3 +21,4 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = '../../../login/login.html';
     }, 800);
 });
+

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DA<sup>2</sup> Beauty paradise</title>
+  <link rel="stylesheet" href="style.css">
+  </link>
+</head>
+
+<body class="indexbody">
+  <!-- Header will be injected by index.js -->
+
+  <div class="search-bar">
+    <input type="text" id="searchInput" placeholder="Search services..." />
+    <button onclick="find()" id="buttonsearch" class="button button--dark">Search</button>
+  </div>
+  <script src="./scripts/common.js"></script>
+  <script src="./scripts/header.js"></script>
+  <script src="./index.js"></script>
+
+
+
+
+  <section class="hero hero--home">
+    <div class="hero__content">
+      <!-- LEFT: headline like Image 1 -->
+      <div>
+        <p class="hero__eyebrow">DA² Beauty Paradise</p>
+        <h1>Find the perfect complement to your beauty</h1>
+        <p class="hero__intro">We will help you find treatments that match your needs and style. Check our salon menu and surround yourself with glow!</p>
+        <a class="button button--dark" href="./navigation/profile/appointments/appointments.html">Book Appointment</a>
+        <p class="mini-label">Primary Colors</p>
+        <div class="color-row">
+          <div class="color-dot dot-green"></div>
+          <div class="color-dot dot-gold"></div>
+          <div class="color-dot dot-brown"></div>
+        </div>
+      </div>
+      <!-- RIGHT: 2 mini glass cards like Image 1 -->
+      <div class="hero__cards">
+        <div class="mini-card">
+          <h3>Hair Spa <span class="price" style="float:right">$45</span></h3>
+          <img src="./hairstyle1.png" alt="Hair service" onerror="this.style.display='none'">
+          <div class="pill">✦ Glow • Hair • Nails</div>
+        </div>
+        <div class="mini-card">
+          <h3>Beauty Product</h3>
+          <img src="./image-Photoroom.png" alt="Beauty" onerror="this.style.display='none'">
+          <div class="pill">▶ Book Facial</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <nav class="quick-links" aria-label="Quick links">
+    <a href="./navigation/About_Us.HTML">About Us</a>
+    <a href="./contacts/contact.html">Contact</a>
+    <a href="./navigation/Wish_list.HTML">Wish List</a>
+  </nav>
+
+  <!-- Footer will be injected by index.js -->
+</body>
+
+</html>

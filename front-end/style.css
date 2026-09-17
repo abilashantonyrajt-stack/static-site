@@ -17,14 +17,18 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: Georgia, serif; color: var(--white); min-height: 100vh; }
 
-/* 3. BACKGROUND like [Image 1]: green leaves LEFT + silky brown hair RIGHT */
-/* applied to EVERY page so all things have same UI */
-body, .indexbody, .page-shell, .page-shell-for-appnt {
+/* 3. BACKGROUND: red-hair salon photo + dark overlay so glass pops */
+  /* Save the image you sent as: front-end/salon-bg.jpg */
+  /* applied to EVERY page so all things have same UI */
+  body, .indexbody, .page-shell, .page-shell-for-appnt {
   min-height: 100vh;
-  /* layer 1: local photo right side, layer 2+3: green leaf gradient left */
+  /* 99.99% visible - photo only, no dimming at all + warm fallback */
   background:
     url("/front-end/salon-bg.jpg"),
     linear-gradient(100deg, #2b0f0e 0%, #7a2a1e 45%, #c4502a 75%, #1a0c0a 100%);
+  background-size: cover, cover;
+  background-position: 75% center, center;
+  background-repeat: no-repeat;
   background-attachment: fixed;
 }
 /* leaf dots texture with pure CSS */

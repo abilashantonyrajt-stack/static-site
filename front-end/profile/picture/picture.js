@@ -1,3 +1,9 @@
+if (!document.querySelector('script[data-shared-script]')) {
+  const sharedScript = document.createElement('script');
+  sharedScript.src = '../../index.js';
+  sharedScript.dataset.sharedScript = 'true';
+  document.head.appendChild(sharedScript);
+}
 /* ============================================
    PROFILE PAGE JAVASCRIPT - TEMPLATE
    Used for profile pages
@@ -139,7 +145,7 @@ const ProfilePage = {
     },
 
     /**
-     * Load mail info content
+     * Load mail-info content
      */
     loadMailInfoContent() {
         const userSession = APP.retrieve('user_session');
@@ -175,7 +181,7 @@ const ProfilePage = {
     },
 
     /**
-     * Load cuppon code content
+     * Load cuppon-code content
      */
     loadCupponCodeContent() {
         const cuppons = APP.retrieve('cuppons') || [];
@@ -203,7 +209,7 @@ const ProfilePage = {
     },
 
     /**
-     * Load refer a friend content
+     * Load refer-a-friend content
      */
     loadReferAFriendContent() {
         const userSession = APP.retrieve('user_session');
@@ -307,3 +313,4 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 console.log('✓ Profile page scripts loaded');
+

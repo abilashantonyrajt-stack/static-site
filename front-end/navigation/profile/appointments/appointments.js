@@ -1,5 +1,7 @@
 // ============================================
-// APPOINTMENT BOOKING SYSTEM - JAVASCRIPT
+// APPOINTMENT BOOKING SYSTEM - simple version
+// Needs: /scripts/common.js loaded before this (for APP + login token)
+// Flow: pick service -> pick date/time -> fill info -> Book -> see it in "My Appointments"
 // ============================================
 
 // Services Database
@@ -38,14 +40,20 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 async function initializeApp() {
-    if (!APP.getToken()) {
-        window.location.href = '../../../login/login.html';
-        return;
-    }
-
+    // Always render the form first so the page never looks dead,
+    // even if backend is off or user is not logged in yet.
     renderServices();
     setupEventListeners();
     setMinDate();
+    renderTimeSlots();
+    updateBookingSummary();
+
+    if (!APP.getToken()) {
+        showErrorMessage('Please log in first to book. Redirecting to login…');
+        setTimeout(() => { window.location.href = '/login/login.html'; }, 1500);
+        return;
+    }
+
     await loadAppointmentsFromStorage();
     displayAppointments();
 }
@@ -498,7 +506,7 @@ async function loadAppointmentsFromStorage() {
         console.error(error);
         state.appointments = [];
         if (String(error.message).toLowerCase().includes('log in') || String(error.message).includes('401')) {
-            window.location.href = '../../../login/login.html';
+            window.location.href = '/login/login.html';
         }
     }
 }
@@ -524,3 +532,4 @@ console.log('✓ Appointment Booking System Loaded');
 console.log('📊 Services Available:', SERVICES.length);
 console.log('🕐 Time Slots:', TIME_SLOTS.length);
 console.log('📝 Stored Appointments:', state.appointments.length);
+

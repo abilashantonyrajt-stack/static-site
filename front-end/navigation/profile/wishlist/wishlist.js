@@ -1,3 +1,9 @@
+if (!document.querySelector('script[data-shared-script]')) {
+  const sharedScript = document.createElement('script');
+  sharedScript.src = '../../../index.js';
+  sharedScript.dataset.sharedScript = 'true';
+  document.head.appendChild(sharedScript);
+}
 /* ============================================
    NAVIGATION PAGE JAVASCRIPT - TEMPLATE
    Used for navigation pages
@@ -154,3 +160,4 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 console.log('✓ Navigation page scripts loaded');
+

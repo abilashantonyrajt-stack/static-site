@@ -1,4 +1,4 @@
-﻿// Page-specific behavior for hair.html
+// Page-specific behavior for hair.html
 if (!document.querySelector('script[data-shared-script]')) {
   const sharedScript = document.createElement('script');
   sharedScript.src = '../../index.js';
@@ -6,3 +6,4 @@ if (!document.querySelector('script[data-shared-script]')) {
   document.head.appendChild(sharedScript);
 }
 document.body.dataset.page = 'hair';
+
