@@ -52,12 +52,12 @@ body, .indexbody, .page-shell, .page-shell-for-appnt{
 }
 body::before{
   content:"";
-  position:fixed; inset:0; pointer-events:none; opacity:0.45;
+  position:fixed; inset:0; pointer-events:none; opacity:0.52;
   background:
-    url("/front-end/beautiful-woman-with-long-brown-hair-curly-and-elegant-free-photo-Photoroom.png") center/cover no-repeat;
-  filter:saturate(0.15) brightness(0.22) contrast(1.05);
-  mask-image:radial-gradient(1200px 700px at 75% 30%, black 40%, transparent 75%);
-  -webkit-mask-image:radial-gradient(1200px 700px at 75% 30%, black 40%, transparent 75%);
+    url("/front-end/beautiful-woman-with-long-brown-hair-curly-and-elegant-free-photo-Photoroom.png") 78% 20% / 980px auto no-repeat,
+    radial-gradient(900px 600px at 75% 35%, rgba(201,168,106,0.16), transparent 60%),
+    linear-gradient(180deg, #0a0a0c 0%, #0f0f12 100%);
+  filter:saturate(1) brightness(0.95) contrast(1.02);
   z-index:-2;
 }
 body::after{
@@ -345,5 +345,4 @@ body::after{
   .brand{font-size:1.25rem}
 }
 
-/* verified change 2026-09-18T15:26:22.1723280+05:30 — hero background tweak */
-.hero { outline: 2px solid var(--gold); }
+/* hero now showcases the beautiful wavy brunette â€” requested background */
