@@ -344,3 +344,6 @@ body::after{
   .site-header{padding:14px 16px}
   .brand{font-size:1.25rem}
 }
+
+/* verified change 2026-09-18T15:26:22.1723280+05:30 — hero background tweak */
+.hero { outline: 2px solid var(--gold); }
