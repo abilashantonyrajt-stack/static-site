@@ -95,26 +95,37 @@ const Header = {
     },
 
     /**
-     * Handle search based on query
+     * Handle search based on query - uses absolute paths so it works from any page depth
      * @param {string} query - Search query
      */
     handleSearch(query) {
-        const searchMap = {
-            'hair styling': './services/hair-styling/hair-styling.html',
-            'hair treatment': './services/hair-treatment/hair-treatment.html',
-            'manicure': './services/manicure/manicure.html',
-            'pedicure': './services/pedicure/pedicure.html',
-            'spa': './services/spa/spa.html',
-            'facial': './services/facial/facial.html'
-        };
-
-        for (const [keyword, path] of Object.entries(searchMap)) {
-            if (query.includes(keyword.toLowerCase())) {
-                window.location.href = path;
-                return;
-            }
+        const q = query.toLowerCase().trim();
+        if (!q) { APP.notify('Please enter a search term','info'); return; }
+        // Match like index.js find() - order matters: treatment before hair
+        if (q.includes('treatment')) {
+            window.location.href = '/navigation/menu/hairtreatment/HairTreatment.html';
+            return;
         }
-
+        if (q.includes('hair')) {
+            window.location.href = '/navigation/menu/hairstyling/HairStyling.html';
+            return;
+        }
+        if (q.includes('manicure')) {
+            window.location.href = '/navigation/menu/manicure/Manicure.html';
+            return;
+        }
+        if (q.includes('pedicure')) {
+            window.location.href = '/navigation/menu/pedicure/Pedicure.html';
+            return;
+        }
+        if (q.includes('spa')) {
+            window.location.href = '/navigation/menu/spa/Spa.html';
+            return;
+        }
+        if (q.includes('facial') || q.includes('face')) {
+            window.location.href = '/navigation/menu/facial/facial.html';
+            return;
+        }
         APP.notify(`No services found for "${query}"`, 'error');
     }
 };

@@ -328,6 +328,19 @@ body::after{
 .appointments-list > div{background:rgba(255,255,255,0.04); border:1px solid var(--line); border-radius:16px; padding:16px}
 .link-text{color:var(--gold-soft); text-decoration:underline; cursor:pointer; text-underline-offset:3px}
 
+.notification{
+  position:fixed; top:22px; right:22px; z-index:100;
+  padding:14px 18px; border-radius:14px;
+  background:var(--glass-strong); border:1px solid var(--line-2);
+  backdrop-filter:blur(14px) saturate(1.1); color:var(--ink); font-weight:600; font-size:0.92rem;
+  box-shadow:var(--shadow); transform:translateX(420px); opacity:0;
+  transition:all 0.35s var(--ease);
+}
+.notification--show{transform:translateX(0); opacity:1}
+.notification--success{border-color:rgba(76,175,109,0.35); background:rgba(76,175,109,0.14)}
+.notification--error{border-color:rgba(220,38,38,0.35); background:rgba(220,38,38,0.12)}
+.notification--info{border-color:var(--gold-line-strong); background:rgba(201,168,106,0.16)}
+
 @keyframes softIn{from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:translateY(0)}}
 
 /* ——— RESPONSIVE ——— */
