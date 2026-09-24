@@ -89,6 +89,34 @@
                         <textarea id="notes" rows="3" placeholder="Any special requests or notes..."></textarea>
                     </div>
 
+                    <!-- Step 4: Payment -->
+                    <div class="form-section" id="paymentSection">
+                        <h3>Step 4: Payment</h3>
+                        <div style="display:grid; gap:12px">
+                            <label style="display:flex; align-items:center; gap:10px; padding:14px; border:1px solid var(--line); border-radius:14px; cursor:pointer; background:rgba(255,255,255,0.04)">
+                                <input type="radio" name="payment" value="cod" id="payCod" checked style="accent-color:var(--gold)">
+                                <span style="flex:1"><strong>Pay at Salon</strong> <span style="color:var(--muted); font-weight:400">— pay after service</span></span>
+                                <span style="color:var(--gold-soft); font-weight:700">COD</span>
+                            </label>
+                            <label style="display:flex; align-items:center; gap:10px; padding:14px; border:1px solid var(--line); border-radius:14px; cursor:pointer; background:rgba(255,255,255,0.04)">
+                                <input type="radio" name="payment" value="upi" id="payUpi" style="accent-color:var(--gold)">
+                                <span style="flex:1"><strong>Pay via UPI</strong> <span style="color:var(--muted); font-weight:400">— QR + instant</span></span>
+                                <span style="color:var(--gold-soft); font-weight:700">UPI</span>
+                            </label>
+                        </div>
+                        <div id="upiBox" style="display:none; margin-top:14px; padding:16px; background:rgba(0,0,0,0.22); border:1px solid var(--line); border-radius:16px; text-align:center">
+                            <p style="font-weight:700; color:var(--gold-soft)">Scan to pay — DA² Beauty Paradise</p>
+                            <img id="upiQr" alt="UPI QR" style="width:180px; height:180px; margin:10px auto; display:block; background:#fff; padding:8px; border-radius:12px" src="">
+                            <p style="font-size:0.85rem; color:var(--muted)"><span id="upiIdText"></span> • <a id="upiLink" href="#" style="color:var(--gold-soft)">Open UPI app</a></p>
+                            <div style="margin-top:10px; text-align:left">
+                                <label for="txnId" style="font-size:0.82rem; font-weight:600; color:var(--muted)">Transaction ID (after payment, optional)</label>
+                                <input type="text" id="txnId" placeholder="e.g. 123456789012" style="width:100%; margin-top:6px; padding:12px 14px; border-radius:12px; border:1px solid var(--line-2); background:rgba(255,255,255,0.05); color:var(--ink)">
+                                <p style="font-size:0.78rem; color:var(--muted); margin-top:6px">You can also pay at salon if you prefer — just keep COD selected.</p>
+                            </div>
+                        </div>
+                        <p style="font-size:0.82rem; color:var(--muted); margin-top:10px">Your slot is held for 10 min after booking. Pay via UPI or at salon.</p>
+                    </div>
+
                     <!-- Summary & Submit -->
                     <div class="booking-summary" id="bookingSummary">
                         <!-- Summary will be populated by JS -->

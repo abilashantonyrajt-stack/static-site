@@ -21,11 +21,15 @@ const TIME_SLOTS = [
     '15:30', '16:00', '16:30', '17:00', '17:30', '18:00'
 ];
 
+// UPI config (fetched from backend)
+let upiConfig = { upiId: 'antonyabilash51-2@oksbi', upiName: 'DA2 Beauty Paradise' };
+
 // Application State
 let state = {
     selectedService: null,
     selectedDate: null,
     selectedTime: null,
+    selectedPayment: 'cod',
     appointments: [],
     bookedTimes: [],
     editingId: null
@@ -47,6 +51,12 @@ async function initializeApp() {
     setMinDate();
     renderTimeSlots();
     updateBookingSummary();
+    setupPayment();
+    // Fetch UPI config for QR
+    try {
+        const cfg = await APP.request(APP.apiUrl('/api/payment/upi'));
+        if (cfg && cfg.upiId) upiConfig = cfg;
+    } catch {}
 
     if (!APP.getToken()) {
         showErrorMessage('Please log in first to book. Redirecting to login…');
@@ -83,6 +93,36 @@ function setupEventListeners() {
 
     // Notes change
     document.getElementById('notes').addEventListener('change', updateBookingSummary);
+}
+
+function setupPayment() {
+    const cod = document.getElementById('payCod');
+    const upi = document.getElementById('payUpi');
+    const box = document.getElementById('upiBox');
+    if (!cod || !upi || !box) return;
+    function refresh() {
+        state.selectedPayment = upi.checked ? 'upi' : 'cod';
+        box.style.display = state.selectedPayment === 'upi' ? 'block' : 'none';
+        if (state.selectedPayment === 'upi') updateUpiQr();
+        updateBookingSummary();
+    }
+    cod.addEventListener('change', refresh);
+    upi.addEventListener('change', refresh);
+    // Also update QR when service changes
+    refresh();
+}
+
+function updateUpiQr() {
+    const svc = SERVICES.find(s => s.id === state.selectedService);
+    const priceNum = svc ? (svc.price.replace(/[^0-9.]/g, '') || '0') : '0';
+    const amount = priceNum;
+    const upiUrl = `upi://pay?pa=${encodeURIComponent(upiConfig.upiId)}&pn=${encodeURIComponent(upiConfig.upiName)}&am=${encodeURIComponent(amount)}&cu=INR&tn=${encodeURIComponent('DA2 Beauty Paradise ' + (svc ? svc.name : 'Appointment'))}`;
+    const qr = document.getElementById('upiQr');
+    const idText = document.getElementById('upiIdText');
+    const link = document.getElementById('upiLink');
+    if (qr) qr.src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(upiUrl)}`;
+    if (idText) idText.textContent = upiConfig.upiId;
+    if (link) link.href = upiUrl;
 }
 
 // ============================================
@@ -136,6 +176,7 @@ function selectService(serviceId, element) {
     // Add selection to clicked service
     element.classList.add('selected');
     state.selectedService = serviceId;
+    if (state.selectedPayment === 'upi') updateUpiQr();
     updateBookingSummary();
 }
 
@@ -228,6 +269,7 @@ function updateBookingSummary() {
         day: 'numeric' 
     });
 
+    const payLabel = state.selectedPayment === 'upi' ? 'UPI (QR)' : 'Pay at Salon';
     summaryContainer.innerHTML = `
         <h4>Booking Summary</h4>
         <div class="summary-item">
@@ -249,6 +291,10 @@ function updateBookingSummary() {
         <div class="summary-item">
             <span class="summary-label">Price</span>
             <span class="summary-value">${selectedService.price}</span>
+        </div>
+        <div class="summary-item">
+            <span class="summary-label">Payment</span>
+            <span class="summary-value">${payLabel}</span>
         </div>
     `;
 }
@@ -277,6 +323,7 @@ async function handleBookingSubmit() {
         return;
     }
 
+    const txnEl = document.getElementById('txnId');
     const payload = {
         service: state.selectedService,
         date: state.selectedDate,
@@ -285,7 +332,9 @@ async function handleBookingSubmit() {
         fullName,
         email,
         phone,
-        notes: document.getElementById('notes').value.trim()
+        notes: document.getElementById('notes').value.trim(),
+        paymentMethod: state.selectedPayment,
+        transactionId: txnEl ? txnEl.value.trim() : ''
     };
 
     try {
@@ -333,8 +382,9 @@ function showSuccessMessage(appointment) {
         day: 'numeric' 
     });
 
+    const payText = appointment.paymentMethod === 'upi' ? ` Paid via UPI${appointment.transactionId ? ' ('+appointment.transactionId+')' : ' (pending verification)'}` : ' — Pay at salon';
     document.getElementById('successText').textContent = 
-        `Your ${service.name} appointment is booked for ${formattedDate} at ${appointment.time}. A confirmation has been sent to ${appointment.email}`;
+        `Your ${service.name} appointment is booked for ${formattedDate} at ${appointment.time}${payText}. A confirmation has been sent to ${appointment.email}`;
     
     successMsg.style.display = 'block';
     successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -353,6 +403,13 @@ function resetForm() {
     state.selectedTime = null;
     state.editingId = null;
     state.bookedTimes = [];
+    state.selectedPayment = 'cod';
+    const cod = document.getElementById('payCod');
+    const upi = document.getElementById('payUpi');
+    const box = document.getElementById('upiBox');
+    if (cod) cod.checked = true;
+    if (upi) upi.checked = false;
+    if (box) box.style.display = 'none';
     
     updateBookingSummary();
 }
@@ -423,6 +480,10 @@ function createAppointmentCard(apt) {
                 <div class="detail-item">
                     <span class="detail-label">💰 Price</span>
                     <span class="detail-value">${service.price}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">💳 Payment</span>
+                    <span class="detail-value">${apt.paymentMethod === 'upi' ? 'UPI' + (apt.transactionId ? ' ('+apt.transactionId+')' : ' (pending)') : 'Pay at Salon'} • ${apt.paymentStatus}</span>
                 </div>
                 <div class="detail-item">
                     <span class="detail-label">👤 Name</span>

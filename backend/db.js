@@ -32,14 +32,23 @@ db.exec(`
     phone TEXT NOT NULL,
     notes TEXT DEFAULT '',
     status TEXT NOT NULL DEFAULT 'upcoming',
+    payment_method TEXT NOT NULL DEFAULT 'cod',
+    payment_status TEXT NOT NULL DEFAULT 'pending',
+    transaction_id TEXT DEFAULT '',
     created_at TEXT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id)
   );
 
   CREATE UNIQUE INDEX IF NOT EXISTS idx_appointments_open_slot
     ON appointments(date, time)
-    WHERE status = 'upcoming';
+    WHERE status = 'upcoming';`);
 
+// Auto-migrate existing DBs (local file before this deploy) - safe if columns already exist
+try { db.exec('ALTER TABLE appointments ADD COLUMN payment_method TEXT NOT NULL DEFAULT "cod"'); } catch {}
+try { db.exec('ALTER TABLE appointments ADD COLUMN payment_status TEXT NOT NULL DEFAULT "pending"'); } catch {}
+try { db.exec('ALTER TABLE appointments ADD COLUMN transaction_id TEXT DEFAULT ""'); } catch {}
+
+db.exec(`
   CREATE TABLE IF NOT EXISTS contact_messages (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     name TEXT NOT NULL,

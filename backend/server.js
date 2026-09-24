@@ -16,6 +16,8 @@ const TIME_SLOTS = [
   '12:00', '13:00', '13:30', '14:00', '14:30', '15:00',
   '15:30', '16:00', '16:30', '17:00', '17:30', '18:00'
 ];
+const UPI_ID = process.env.UPI_ID || 'antonyabilash51-2@oksbi';
+const UPI_NAME = process.env.UPI_NAME || 'DA2 Beauty Paradise';
 
 app.use(cors());
 app.use(express.json());
@@ -71,6 +73,9 @@ function mapAppointment(row) {
     phone: row.phone,
     notes: row.notes || '',
     status: row.status,
+    paymentMethod: row.payment_method || 'cod',
+    paymentStatus: row.payment_status || 'pending',
+    transactionId: row.transaction_id || '',
     createdAt: row.created_at
   };
 }
@@ -86,6 +91,10 @@ app.get('/api/health', (_req, res) => {
 app.get('/api/services', (_req, res) => {
   const services = db.prepare('SELECT id, name, emoji, price FROM services ORDER BY name').all();
   res.json(services);
+});
+
+app.get('/api/payment/upi', (_req, res) => {
+  res.json({ upiId: UPI_ID, upiName: UPI_NAME });
 });
 
 app.post('/api/auth/register', (req, res) => {
@@ -219,6 +228,16 @@ app.post('/api/appointments', authRequired, (req, res) => {
     return res.status(409).json({ error: 'That time slot is already booked' });
   }
 
+  const paymentMethod = String(body.paymentMethod || 'cod').trim().toLowerCase();
+  const paymentStatus = paymentMethod === 'cod' ? 'pending' : 'pending';
+  const transactionId = String(body.transactionId || '').trim();
+  if (!['cod', 'upi'].includes(paymentMethod)) {
+    return res.status(400).json({ error: 'Invalid payment method' });
+  }
+  if (paymentMethod === 'upi' && !transactionId) {
+    // Allow empty for now but warn - will be pending until verified
+  }
+
   const appointment = {
     id: 'apt_' + crypto.randomBytes(8).toString('hex'),
     user_id: req.user.id,
@@ -231,14 +250,17 @@ app.post('/api/appointments', authRequired, (req, res) => {
     phone,
     notes,
     status: 'upcoming',
+    payment_method: paymentMethod,
+    payment_status: paymentStatus,
+    transaction_id: transactionId,
     created_at: new Date().toISOString()
   };
 
   try {
     db.prepare(`
       INSERT INTO appointments
-        (id, user_id, service, date, time, duration, full_name, email, phone, notes, status, created_at)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        (id, user_id, service, date, time, duration, full_name, email, phone, notes, status, payment_method, payment_status, transaction_id, created_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `).run(
       appointment.id,
       appointment.user_id,
@@ -251,6 +273,9 @@ app.post('/api/appointments', authRequired, (req, res) => {
       appointment.phone,
       appointment.notes,
       appointment.status,
+      appointment.payment_method,
+      appointment.payment_status,
+      appointment.transaction_id,
       appointment.created_at
     );
   } catch (error) {
