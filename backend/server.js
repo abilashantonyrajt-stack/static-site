@@ -4,6 +4,7 @@ const express = require('express');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const nodemailer = require('nodemailer');
 const db = require('./db');
 
 const app = express();
@@ -18,6 +19,30 @@ const TIME_SLOTS = [
 ];
 const UPI_ID = process.env.UPI_ID || 'antonyabilash51-2@oksbi';
 const UPI_NAME = process.env.UPI_NAME || 'DA2 Beauty Paradise';
+
+// Gmail-only + OTP
+const GMAIL_RE = /^[^\s@]+@gmail\.com$/i;
+const OTP_TTL_MS = 5 * 60 * 1000; // 5 min
+const OTP_RESEND_MS = 60 * 1000; // 60s anti-spam
+const otpSendLog = new Map(); // email -> last send timestamp
+
+function isGmail(email) { return GMAIL_RE.test(String(email||'').trim()); }
+
+let mailer = null;
+function getMailer() {
+  if (mailer) return mailer;
+  const user = process.env.SMTP_USER;
+  const pass = process.env.SMTP_PASS;
+  if (!user || !pass) {
+    console.log('SMTP not configured — OTP will be logged to console (set SMTP_USER/SMTP_PASS on Vercel)');
+    return null;
+  }
+  mailer = nodemailer.createTransport({
+    service: 'gmail',
+    auth: { user, pass }
+  });
+  return mailer;
+}
 
 app.use(cors());
 app.use(express.json());
@@ -137,6 +162,55 @@ app.post('/api/payment/verify', (req, res) => {
   return res.status(400).json({ error: 'Invalid payment method' });
 });
 
+app.post('/api/auth/send-otp', async (req, res) => {
+  const email = parseEmail(req.body);
+  if (!EMAIL_RE.test(email)) return res.status(400).json({ error: 'Please enter a valid email address' });
+  if (!isGmail(email)) return res.status(400).json({ error: 'Only Gmail accounts are allowed (must be @gmail.com)' });
+  const last = otpSendLog.get(email);
+  if (last && Date.now() - last < OTP_RESEND_MS) {
+    const wait = Math.ceil((OTP_RESEND_MS - (Date.now() - last))/1000);
+    return res.status(429).json({ error: `Please wait ${wait}s before resending OTP` });
+  }
+  const otp = String(Math.floor(100000 + Math.random()*900000));
+  const expiresAt = new Date(Date.now() + OTP_TTL_MS).toISOString();
+  db.prepare('INSERT OR REPLACE INTO otps (email, otp, expires_at, verified, created_at) VALUES (?, ?, ?, 0, ?)').run(email, otp, expiresAt, new Date().toISOString());
+  otpSendLog.set(email, Date.now());
+  const mail = getMailer();
+  if (mail) {
+    try {
+      await mail.sendMail({
+        from: process.env.SMTP_USER,
+        to: email,
+        subject: 'DA² Beauty Paradise — Your OTP',
+        text: `Your OTP is ${otp}. It expires in 5 minutes.`,
+        html: `<div style="font-family:sans-serif;padding:16px;border:1px solid #eee;border-radius:12px"><h2 style="color:#8f7340;margin:0 0 8px">DA² Beauty Paradise</h2><p>Your OTP is <b style="font-size:22px;letter-spacing:3px">${otp}</b></p><p style="color:#666">Expires in 5 minutes. If you didn't request this, ignore.</p></div>`
+      });
+    } catch (e) {
+      console.error('SMTP send failed', e.message);
+      console.log(`OTP for ${email}: ${otp} (email failed, logged)`);
+    }
+  } else {
+    console.log(`OTP for ${email}: ${otp} (SMTP not configured)`);
+  }
+  // Don't leak OTP in production when SMTP is configured
+  const response = { ok: true, message: 'OTP sent to your Gmail' };
+  if (!mail) response.otp = otp; // expose only when no SMTP (local dev)
+  res.json(response);
+});
+
+app.post('/api/auth/verify-otp', (req, res) => {
+  const email = parseEmail(req.body);
+  const otp = String(req.body.otp || '').trim();
+  if (!isGmail(email)) return res.status(400).json({ error: 'Only Gmail accounts are allowed' });
+  if (!/^\d{6}$/.test(otp)) return res.status(400).json({ error: 'OTP must be 6 digits' });
+  const row = db.prepare('SELECT email, otp, expires_at, verified FROM otps WHERE email = ?').get(email);
+  if (!row) return res.status(400).json({ error: 'No OTP found — please request OTP first' });
+  if (row.otp !== otp) return res.status(400).json({ error: 'Invalid OTP' });
+  if (new Date(row.expires_at) < new Date()) return res.status(400).json({ error: 'OTP expired — please request a new one' });
+  db.prepare('UPDATE otps SET verified = 1 WHERE email = ?').run(email);
+  res.json({ ok: true, verified: true });
+});
+
 app.post('/api/auth/register', (req, res) => {
   const email = parseEmail(req.body);
   const password = String(req.body.password || '');
@@ -145,11 +219,18 @@ app.post('/api/auth/register', (req, res) => {
   if (!EMAIL_RE.test(email)) {
     return res.status(400).json({ error: 'Please enter a valid email address' });
   }
+  if (!isGmail(email)) {
+    return res.status(400).json({ error: 'Only Gmail is allowed — please use your @gmail.com address' });
+  }
   if (password.length < 6) {
     return res.status(400).json({ error: 'Password must be at least 6 characters' });
   }
   if (!name) {
     return res.status(400).json({ error: 'Please enter your name' });
+  }
+  const otpRow = db.prepare('SELECT verified, expires_at FROM otps WHERE email = ?').get(email);
+  if (!otpRow || !otpRow.verified || new Date(otpRow.expires_at) < new Date()) {
+    return res.status(400).json({ error: 'Please verify your Gmail with OTP first' });
   }
 
   const existing = db.prepare('SELECT id FROM users WHERE email = ?').get(email);
@@ -171,6 +252,13 @@ app.post('/api/auth/login', (req, res) => {
 
   if (!email || !password) {
     return res.status(400).json({ error: 'Email and password are required' });
+  }
+  if (!isGmail(email)) {
+    return res.status(400).json({ error: 'Only Gmail is allowed' });
+  }
+  const otpRow = db.prepare('SELECT verified, expires_at FROM otps WHERE email = ?').get(email);
+  if (!otpRow || !otpRow.verified || new Date(otpRow.expires_at) < new Date()) {
+    return res.status(400).json({ error: 'Please verify your Gmail with OTP first' });
   }
 
   const row = db.prepare('SELECT id, email, name, password_hash FROM users WHERE email = ?').get(email);

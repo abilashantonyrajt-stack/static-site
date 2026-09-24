@@ -65,7 +65,15 @@ db.exec(`
     emoji TEXT NOT NULL,
     price TEXT NOT NULL
   );
-`);
+
+  CREATE TABLE IF NOT EXISTS otps (
+    email TEXT PRIMARY KEY,
+    otp TEXT NOT NULL,
+    expires_at TEXT NOT NULL,
+    verified INTEGER NOT NULL DEFAULT 0,
+    created_at TEXT NOT NULL
+  );
+ `);
 
 const seed = db.prepare(`
   INSERT OR IGNORE INTO services (id, name, emoji, price)
