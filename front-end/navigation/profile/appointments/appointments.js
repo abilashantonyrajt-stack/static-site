@@ -324,6 +324,8 @@ async function handleBookingSubmit() {
     }
 
     const txnEl = document.getElementById('txnId');
+    const btn = document.querySelector('.btn-submit');
+    const origText = btn ? btn.textContent : '';
     const payload = {
         service: state.selectedService,
         date: state.selectedDate,
@@ -336,6 +338,19 @@ async function handleBookingSubmit() {
         paymentMethod: state.selectedPayment,
         transactionId: txnEl ? txnEl.value.trim() : ''
     };
+
+    // Verify payment first (UPI needs valid txn, COD needs no verification)
+    if (btn) { btn.disabled = true; btn.textContent = 'Verifying payment...'; }
+    try {
+        const verifyBody = { paymentMethod: payload.paymentMethod, transactionId: payload.transactionId, service: payload.service, amount: (SERVICES.find(s=>s.id===payload.service)?.price || '').replace(/[^0-9.]/g,'') };
+        const v = await APP.request(APP.apiUrl('/api/payment/verify'), { method: 'POST', body: verifyBody });
+        if (!v.verified && payload.paymentMethod !== 'cod') throw new Error(v.error || 'Payment verification failed');
+    } catch (e) {
+        if (btn) { btn.disabled = false; btn.textContent = origText; }
+        showErrorMessage(e.message || 'Payment verification failed');
+        return;
+    }
+    if (btn) btn.textContent = 'Booking...';
 
     try {
         let appointment;
@@ -358,6 +373,8 @@ async function handleBookingSubmit() {
         setTimeout(resetForm, 2000);
     } catch (error) {
         showErrorMessage(error.message || 'Could not save appointment');
+    } finally {
+        if (btn) { btn.disabled = false; btn.textContent = origText; }
     }
 }
 

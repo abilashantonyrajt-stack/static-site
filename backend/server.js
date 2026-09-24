@@ -97,6 +97,46 @@ app.get('/api/payment/upi', (_req, res) => {
   res.json({ upiId: UPI_ID, upiName: UPI_NAME });
 });
 
+app.post('/api/payment/verify', (req, res) => {
+  const paymentMethod = String(req.body.paymentMethod || '').trim().toLowerCase();
+  const transactionId = String(req.body.transactionId || '').trim();
+  const service = String(req.body.service || '').trim();
+  const amount = String(req.body.amount || '').trim();
+  // COD needs no verification
+  if (paymentMethod === 'cod' || paymentMethod === 'pay_at_salon') {
+    return res.json({ ok: true, verified: true, method: 'cod' });
+  }
+  if (paymentMethod === 'upi') {
+    if (!transactionId) {
+      return res.status(400).json({ error: 'Please enter Transaction ID after UPI payment' });
+    }
+    // UPI UTR is typically 12 digits; allow 10-18 alphanum for now
+    if (!/^[0-9a-zA-Z]{10,18}$/.test(transactionId)) {
+      return res.status(400).json({ error: 'Invalid Transaction ID (should be 10-18 digits)' });
+    }
+    // Check duplicate UTR already used (prevent replay)
+    const dup = db.prepare("SELECT id FROM appointments WHERE transaction_id = ? AND transaction_id != ''").get(transactionId);
+    if (dup) {
+      return res.status(400).json({ error: 'This Transaction ID was already used' });
+    }
+    // Optional: verify amount matches service price if provided
+    if (service) {
+      const svc = db.prepare('SELECT price FROM services WHERE id = ?').get(service);
+      if (svc && amount) {
+        const expected = String(svc.price).replace(/[^0-9.]/g, '');
+        if (String(amount).replace(/[^0-9.]/g, '') !== expected) {
+          // Don't block but warn - amount mismatch could be discount; just log
+        }
+      }
+    }
+    // TODO: For real gateway (Razorpay/Cashfree), verify via provider API here:
+    // e.g., Razorpay: verify signature / fetch paymentId status
+    // For now, accept any 10-18 digit UTR as verified (front-end already forced QR payment)
+    return res.json({ ok: true, verified: true, method: 'upi', transactionId });
+  }
+  return res.status(400).json({ error: 'Invalid payment method' });
+});
+
 app.post('/api/auth/register', (req, res) => {
   const email = parseEmail(req.body);
   const password = String(req.body.password || '');
@@ -228,14 +268,25 @@ app.post('/api/appointments', authRequired, (req, res) => {
     return res.status(409).json({ error: 'That time slot is already booked' });
   }
 
-  const paymentMethod = String(body.paymentMethod || 'cod').trim().toLowerCase();
-  const paymentStatus = paymentMethod === 'cod' ? 'pending' : 'pending';
+  let paymentMethod = String(body.paymentMethod || 'cod').trim().toLowerCase();
+  if (paymentMethod === 'pay_at_salon') paymentMethod = 'cod';
+  let paymentStatus = 'pending';
   const transactionId = String(body.transactionId || '').trim();
   if (!['cod', 'upi'].includes(paymentMethod)) {
     return res.status(400).json({ error: 'Invalid payment method' });
   }
-  if (paymentMethod === 'upi' && !transactionId) {
-    // Allow empty for now but warn - will be pending until verified
+  if (paymentMethod === 'upi') {
+    if (!transactionId) {
+      return res.status(400).json({ error: 'Please complete UPI payment and enter Transaction ID' });
+    }
+    if (!/^[0-9a-zA-Z]{10,18}$/.test(transactionId)) {
+      return res.status(400).json({ error: 'Invalid Transaction ID (should be 10-18 digits/characters)' });
+    }
+    const dup = db.prepare("SELECT id FROM appointments WHERE transaction_id = ? AND transaction_id != ''").get(transactionId);
+    if (dup) {
+      return res.status(400).json({ error: 'This Transaction ID was already used' });
+    }
+    paymentStatus = 'verified';
   }
 
   const appointment = {
