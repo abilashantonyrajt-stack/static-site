@@ -1,4 +1,4 @@
-if (!document.querySelector('script[data-shared-script]')) {
+﻿if (!document.querySelector('script[data-shared-script]')) {
   const sharedScript = document.createElement('script');
   sharedScript.src = '../index.js';
   sharedScript.dataset.sharedScript = 'true';
@@ -51,7 +51,7 @@ const LoginPage = {
         if (!status || !info) return;
         if (this.otpVerified) {
             status.hidden = false;
-            status.textContent = '✓ Gmail verified';
+            status.textContent = 'âœ“ Gmail verified';
             status.style.color = '#1d6a3a';
             if (otpInput) otpInput.style.borderColor = 'rgba(76,175,109,0.5)';
         } else if (this.otpSeconds > 0) {
@@ -85,7 +85,7 @@ const LoginPage = {
     async sendOtp() {
         const email = document.getElementById('email').value.trim().toLowerCase();
         if (!email) { this.showMessage('Please enter your Gmail first', 'error'); return; }
-        if (!email.endsWith('@gmail.com')) { this.showMessage('Only Gmail is allowed — please use @gmail.com', 'error'); return; }
+        if (!email.endsWith('@gmail.com')) { this.showMessage('Only Gmail is allowed â€” please use @gmail.com', 'error'); return; }
         const btn = document.getElementById('sendOtp');
         const orig = btn ? btn.textContent : '';
         if (btn) { btn.disabled = true; btn.textContent = 'Sending...'; }
@@ -121,7 +121,7 @@ const LoginPage = {
         try {
             await APP.request(APP.apiUrl('/api/auth/verify-otp'), { method: 'POST', body: { email, otp } });
             this.otpVerified = true;
-            this.showMessage('✓ Gmail verified — you can now continue', 'success');
+            this.showMessage('âœ“ Gmail verified â€” you can now continue', 'success');
             this.updateOtpUi();
         } catch (e) {
             this.otpVerified = false;
@@ -173,11 +173,11 @@ const LoginPage = {
         const button = document.getElementById('authSubmit');
 
         if (!email.endsWith('@gmail.com')) {
-            this.showMessage('Only Gmail is allowed — please use your @gmail.com address', 'error');
+            this.showMessage('Only Gmail is allowed â€” please use your @gmail.com address', 'error');
             return;
         }
         if (!this.otpVerified) {
-            this.showMessage('Please verify your Gmail with OTP first (Send OTP → Verify)', 'error');
+            this.showMessage('Please verify your Gmail with OTP first (Send OTP â†’ Verify)', 'error');
             return;
         }
         const otpVal = document.getElementById('otp').value.trim();
@@ -206,7 +206,7 @@ const LoginPage = {
             }
 
             this.showMessage('Success! Redirecting...', 'success');
-            window.location.href = '../../index.html';
+            window.location.href = '/';
         } catch (error) {
             this.showMessage(error.message || 'Could not reach the server. Start it with npm start in backend/.', 'error');
             button.disabled = false;

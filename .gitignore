@@ -9,3 +9,5 @@ backend/*.db-wal
 .env.local
 /tmp/salon.db
 .vercel
+
+.env*

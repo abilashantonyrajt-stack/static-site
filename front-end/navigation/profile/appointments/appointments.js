@@ -1,4 +1,4 @@
-// ============================================
+﻿// ============================================
 // APPOINTMENT BOOKING SYSTEM - simple version
 // Needs: /scripts/common.js loaded before this (for APP + login token)
 // Flow: pick service -> pick date/time -> fill info -> Book -> see it in "My Appointments"
@@ -6,12 +6,12 @@
 
 // Services Database
 const SERVICES = [
-    { id: 'hair-styling', name: 'Hair Styling', emoji: '💇', price: '$50' },
-    { id: 'hair-treatment', name: 'Hair Treatment', emoji: '💆', price: '$60' },
-    { id: 'manicure', name: 'Manicure', emoji: '💅', price: '$35' },
-    { id: 'pedicure', name: 'Pedicure', emoji: '👣', price: '$40' },
-    { id: 'spa', name: 'Spa', emoji: '🧖', price: '$75' },
-    { id: 'facial', name: 'Facial', emoji: '✨', price: '$55' }
+    { id: 'hair-styling', name: 'Hair Styling', emoji: 'ðŸ’‡', price: '$50' },
+    { id: 'hair-treatment', name: 'Hair Treatment', emoji: 'ðŸ’†', price: '$60' },
+    { id: 'manicure', name: 'Manicure', emoji: 'ðŸ’…', price: '$35' },
+    { id: 'pedicure', name: 'Pedicure', emoji: 'ðŸ‘£', price: '$40' },
+    { id: 'spa', name: 'Spa', emoji: 'ðŸ§–', price: '$75' },
+    { id: 'facial', name: 'Facial', emoji: 'âœ¨', price: '$55' }
 ];
 
 // Time slots configuration
@@ -59,8 +59,8 @@ async function initializeApp() {
     } catch {}
 
     if (!APP.getToken()) {
-        showErrorMessage('Please log in first to book. Redirecting to login…');
-        setTimeout(() => { window.location.href = '/login/login.html'; }, 1500);
+        showErrorMessage('Please log in first to book. Redirecting to loginâ€¦');
+        setTimeout(() => { window.location.href = '/login'; }, 1500);
         return;
     }
 
@@ -380,7 +380,7 @@ async function handleBookingSubmit() {
 
 function showErrorMessage(message) {
     const summaryContainer = document.getElementById('bookingSummary');
-    summaryContainer.innerHTML = `<div class="error-message"><p class="error-text">⚠️ ${message}</p></div>`;
+    summaryContainer.innerHTML = `<div class="error-message"><p class="error-text">âš ï¸ ${message}</p></div>`;
     summaryContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
@@ -399,7 +399,7 @@ function showSuccessMessage(appointment) {
         day: 'numeric' 
     });
 
-    const payText = appointment.paymentMethod === 'upi' ? ` Paid via UPI${appointment.transactionId ? ' ('+appointment.transactionId+')' : ' (pending verification)'}` : ' — Pay at salon';
+    const payText = appointment.paymentMethod === 'upi' ? ` Paid via UPI${appointment.transactionId ? ' ('+appointment.transactionId+')' : ' (pending verification)'}` : ' â€” Pay at salon';
     document.getElementById('successText').textContent = 
         `Your ${service.name} appointment is booked for ${formattedDate} at ${appointment.time}${payText}. A confirmation has been sent to ${appointment.email}`;
     
@@ -483,31 +483,31 @@ function createAppointmentCard(apt) {
 
             <div class="appointment-details">
                 <div class="detail-item">
-                    <span class="detail-label">📅 Date</span>
+                    <span class="detail-label">ðŸ“… Date</span>
                     <span class="detail-value">${formattedDate}</span>
                 </div>
                 <div class="detail-item">
-                    <span class="detail-label">🕐 Time</span>
+                    <span class="detail-label">ðŸ• Time</span>
                     <span class="detail-value">${apt.time}</span>
                 </div>
                 <div class="detail-item">
-                    <span class="detail-label">⏱️ Duration</span>
+                    <span class="detail-label">â±ï¸ Duration</span>
                     <span class="detail-value">${apt.duration} minutes</span>
                 </div>
                 <div class="detail-item">
-                    <span class="detail-label">💰 Price</span>
+                    <span class="detail-label">ðŸ’° Price</span>
                     <span class="detail-value">${service.price}</span>
                 </div>
                 <div class="detail-item">
-                    <span class="detail-label">💳 Payment</span>
-                    <span class="detail-value">${apt.paymentMethod === 'upi' ? 'UPI' + (apt.transactionId ? ' ('+apt.transactionId+')' : ' (pending)') : 'Pay at Salon'} • ${apt.paymentStatus}</span>
+                    <span class="detail-label">ðŸ’³ Payment</span>
+                    <span class="detail-value">${apt.paymentMethod === 'upi' ? 'UPI' + (apt.transactionId ? ' ('+apt.transactionId+')' : ' (pending)') : 'Pay at Salon'} â€¢ ${apt.paymentStatus}</span>
                 </div>
                 <div class="detail-item">
-                    <span class="detail-label">👤 Name</span>
+                    <span class="detail-label">ðŸ‘¤ Name</span>
                     <span class="detail-value">${apt.fullName}</span>
                 </div>
                 <div class="detail-item">
-                    <span class="detail-label">📧 Email</span>
+                    <span class="detail-label">ðŸ“§ Email</span>
                     <span class="detail-value">${apt.email}</span>
                 </div>
             </div>
@@ -584,7 +584,7 @@ async function loadAppointmentsFromStorage() {
         console.error(error);
         state.appointments = [];
         if (String(error.message).toLowerCase().includes('log in') || String(error.message).includes('401')) {
-            window.location.href = '/login/login.html';
+            window.location.href = '/login';
         }
     }
 }
@@ -606,8 +606,8 @@ function isValidEmail(email) {
 // CONSOLE LOGGING FOR DEVELOPMENT
 // ============================================
 
-console.log('✓ Appointment Booking System Loaded');
-console.log('📊 Services Available:', SERVICES.length);
-console.log('🕐 Time Slots:', TIME_SLOTS.length);
-console.log('📝 Stored Appointments:', state.appointments.length);
+console.log('âœ“ Appointment Booking System Loaded');
+console.log('ðŸ“Š Services Available:', SERVICES.length);
+console.log('ðŸ• Time Slots:', TIME_SLOTS.length);
+console.log('ðŸ“ Stored Appointments:', state.appointments.length);
 
