@@ -4,32 +4,12 @@
     {
       "src": "api/index.js",
       "use": "@vercel/node"
-    },
-    {
-      "src": "front-end/**/*.html",
-      "use": "@vercel/static"
-    },
-    {
-      "src": "front-end/**/*.{css,js,png,jpg,jpeg,ico,webp}",
-      "use": "@vercel/static"
     }
   ],
   "routes": [
-    { "src": "^/profile/appointments$", "dest": "/front-end/navigation/profile/appointments/appointments.html" },
-    { "src": "^/profile$", "dest": "/front-end/navigation/profile/Profile.HTML" },
-    { "src": "^/login$", "dest": "/front-end/login/login.html" },
-    { "src": "^/about$", "dest": "/front-end/navigation/About_Us.HTML" },
-    { "src": "^/wishlist$", "dest": "/front-end/navigation/Wish_list.HTML" },
-    { "src": "^/contact$", "dest": "/front-end/contacts/contact.html" },
-    { "src": "^/services$", "dest": "/front-end/navigation/menu/Menu.HTML" },
-    { "src": "^/search$", "dest": "/front-end/searchbar/Search_bar.HTML" },
-    { "src": "^/services/hair-styling$", "dest": "/front-end/navigation/menu/hairstyling/HairStyling.html" },
-    { "src": "^/services/hair-treatment$", "dest": "/front-end/navigation/menu/hairtreatment/HairTreatment.html" },
-    { "src": "^/services/manicure$", "dest": "/front-end/navigation/menu/manicure/Manicure.html" },
-    { "src": "^/services/pedicure$", "dest": "/front-end/navigation/menu/pedicure/Pedicure.html" },
-    { "src": "^/services/spa$", "dest": "/front-end/navigation/menu/spa/Spa.html" },
-    { "src": "^/services/facial$", "dest": "/front-end/navigation/menu/facial/facial.html" },
-    { "src": "/api/(.*)", "dest": "api/index.js" },
-    { "src": "/(.*)", "dest": "api/index.js" }
+    {
+      "src": "/(.*)",
+      "dest": "api/index.js"
+    }
   ]
 }

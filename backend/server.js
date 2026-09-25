@@ -61,6 +61,23 @@ function getMailer() {
 app.use(cors());
 app.use(express.json());
 
+// Clean URLs like p&p (/profile, /login etc.) — registered BEFORE static
+// so /profile and /login return 200 directly instead of static's 301 dir redirect
+app.get('/profile', (_req, res) => res.sendFile(path.join(FRONT_END, 'navigation/profile/Profile.HTML')));
+app.get('/login', (_req, res) => res.sendFile(path.join(FRONT_END, 'login/login.html')));
+app.get('/about', (_req, res) => res.sendFile(path.join(FRONT_END, 'navigation/About_Us.HTML')));
+app.get('/wishlist', (_req, res) => res.sendFile(path.join(FRONT_END, 'navigation/Wish_list.HTML')));
+app.get('/contact', (_req, res) => res.sendFile(path.join(FRONT_END, 'contacts/contact.html')));
+app.get('/services', (_req, res) => res.sendFile(path.join(FRONT_END, 'navigation/menu/Menu.HTML')));
+app.get('/search', (_req, res) => res.sendFile(path.join(FRONT_END, 'searchbar/Search_bar.HTML')));
+app.get(['/profile/appointments', '/profile/appointments/'], (_req, res) => res.sendFile(path.join(FRONT_END, 'navigation/profile/appointments/appointments.html')));
+app.get('/services/hair-styling', (_req, res) => res.sendFile(path.join(FRONT_END, 'navigation/menu/hairstyling/HairStyling.html')));
+app.get('/services/hair-treatment', (_req, res) => res.sendFile(path.join(FRONT_END, 'navigation/menu/hairtreatment/HairTreatment.html')));
+app.get('/services/manicure', (_req, res) => res.sendFile(path.join(FRONT_END, 'navigation/menu/manicure/Manicure.html')));
+app.get('/services/pedicure', (_req, res) => res.sendFile(path.join(FRONT_END, 'navigation/menu/pedicure/Pedicure.html')));
+app.get('/services/spa', (_req, res) => res.sendFile(path.join(FRONT_END, 'navigation/menu/spa/Spa.html')));
+app.get('/services/facial', (_req, res) => res.sendFile(path.join(FRONT_END, 'navigation/menu/facial/facial.html')));
+
 app.use(express.static(FRONT_END));
 // Alias so absolute /front-end/... paths (Live Server style) also work on Express
 app.use('/front-end', express.static(FRONT_END));
@@ -527,21 +544,6 @@ app.post('/api/contact', (req, res) => {
 app.get('/', (_req, res) => {
   res.sendFile(path.join(FRONT_END, 'index.html'));
 });
-// Clean URLs like p&p (/profile, /login etc.) — also hide internal paths
-app.get('/profile', (_req, res) => res.sendFile(path.join(FRONT_END, 'navigation/profile/Profile.HTML')));
-app.get('/login', (_req, res) => res.sendFile(path.join(FRONT_END, 'login/login.html')));
-app.get('/about', (_req, res) => res.sendFile(path.join(FRONT_END, 'navigation/About_Us.HTML')));
-app.get('/wishlist', (_req, res) => res.sendFile(path.join(FRONT_END, 'navigation/Wish_list.HTML')));
-app.get('/contact', (_req, res) => res.sendFile(path.join(FRONT_END, 'contacts/contact.html')));
-app.get('/services', (_req, res) => res.sendFile(path.join(FRONT_END, 'navigation/menu/Menu.HTML')));
-app.get('/search', (_req, res) => res.sendFile(path.join(FRONT_END, 'searchbar/Search_bar.HTML')));
-app.get(['/profile/appointments', '/profile/appointments/'], (_req, res) => res.sendFile(path.join(FRONT_END, 'navigation/profile/appointments/appointments.html')));
-app.get('/services/hair-styling', (_req, res) => res.sendFile(path.join(FRONT_END, 'navigation/menu/hairstyling/HairStyling.html')));
-app.get('/services/hair-treatment', (_req, res) => res.sendFile(path.join(FRONT_END, 'navigation/menu/hairtreatment/HairTreatment.html')));
-app.get('/services/manicure', (_req, res) => res.sendFile(path.join(FRONT_END, 'navigation/menu/manicure/Manicure.html')));
-app.get('/services/pedicure', (_req, res) => res.sendFile(path.join(FRONT_END, 'navigation/menu/pedicure/Pedicure.html')));
-app.get('/services/spa', (_req, res) => res.sendFile(path.join(FRONT_END, 'navigation/menu/spa/Spa.html')));
-app.get('/services/facial', (_req, res) => res.sendFile(path.join(FRONT_END, 'navigation/menu/facial/facial.html')));
 
 app.use((err, _req, res, _next) => {
   if (err.status === 400 || err.type === 'entity.parse.failed') {
