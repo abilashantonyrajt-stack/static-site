@@ -7,9 +7,20 @@
     }
   ],
   "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "api/index.js"
-    }
+    { "src": "/profile", "dest": "api/index.js" },
+    { "src": "/profile/appointments", "dest": "api/index.js" },
+    { "src": "/login", "dest": "/login/login.html" },
+    { "src": "/about", "dest": "/navigation/About_Us.HTML" },
+    { "src": "/wishlist", "dest": "/navigation/Wish_list.HTML" },
+    { "src": "/contact", "dest": "/contacts/contact.html" },
+    { "src": "/services", "dest": "/navigation/menu/Menu.HTML" },
+    { "src": "/search", "dest": "/searchbar/Search_bar.HTML" },
+    { "src": "/services/hair-styling", "dest": "/navigation/menu/hairstyling/HairStyling.html" },
+    { "src": "/services/hair-treatment", "dest": "/navigation/menu/hairtreatment/HairTreatment.html" },
+    { "src": "/services/manicure", "dest": "/navigation/menu/manicure/Manicure.html" },
+    { "src": "/services/pedicure", "dest": "/navigation/menu/pedicure/Pedicure.html" },
+    { "src": "/services/spa", "dest": "/navigation/menu/spa/Spa.html" },
+    { "src": "/services/facial", "dest": "/navigation/menu/facial/facial.html" },
+    { "src": "/(.*)", "dest": "api/index.js" }
   ]
 }

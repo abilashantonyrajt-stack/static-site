@@ -28,6 +28,20 @@ const otpSendLog = new Map(); // email -> last send timestamp
 
 function isGmail(email) { return GMAIL_RE.test(String(email||'').trim()); }
 
+const ADMIN_EMAILS = (process.env.ADMIN_EMAILS || process.env.ADMIN_EMAIL || 'antonyabilash51@gmail.com').split(',').map(s=>s.trim().toLowerCase()).filter(Boolean);
+function adminRequired(req,res,next){
+  const email = String(req.headers['x-admin-email'] || '').trim().toLowerCase();
+  if (!email || !ADMIN_EMAILS.includes(email)) return res.status(403).json({ error: 'Admin access required' });
+  // also verify JWT if provided matches admin email
+  const header = req.headers.authorization || '';
+  const token = header.startsWith('Bearer ') ? header.slice(7) : '';
+  if (token) {
+    try { const p = jwt.verify(token, JWT_SECRET); if (String(p.email||'').toLowerCase() !== email) return res.status(403).json({ error: 'Admin email mismatch' }); } catch {}
+  }
+  req.adminEmail = email;
+  next();
+}
+
 let mailer = null;
 function getMailer() {
   if (mailer) return mailer;
@@ -47,21 +61,9 @@ function getMailer() {
 app.use(cors());
 app.use(express.json());
 
-// Legacy alias: /profile/... was the screenshot 404 — canonical is /navigation/profile/...
-// Also handle duplicate folder front-end/profile vs front-end/navigation/profile
-app.use((req, _res, next) => {
-  if (req.path.startsWith('/profile/')) {
-    req.url = '/navigation' + req.url;
-  } else if (req.path === '/profile' ) {
-    req.url = '/navigation/profile/Profile.HTML';
-  }
-  next();
-});
 app.use(express.static(FRONT_END));
 // Alias so absolute /front-end/... paths (Live Server style) also work on Express
 app.use('/front-end', express.static(FRONT_END));
-// Also expose navigation profile at /profile for backwards compat
-app.use('/profile', express.static(path.join(FRONT_END, 'navigation/profile')));
 
 function publicUser(row) {
   return { id: row.id, email: row.email, name: row.name };
@@ -525,6 +527,21 @@ app.post('/api/contact', (req, res) => {
 app.get('/', (_req, res) => {
   res.sendFile(path.join(FRONT_END, 'index.html'));
 });
+// Clean URLs like p&p (/profile, /login etc.) — also hide internal paths
+app.get('/profile', (_req, res) => res.sendFile(path.join(FRONT_END, 'navigation/profile/Profile.HTML')));
+app.get('/login', (_req, res) => res.sendFile(path.join(FRONT_END, 'login/login.html')));
+app.get('/about', (_req, res) => res.sendFile(path.join(FRONT_END, 'navigation/About_Us.HTML')));
+app.get('/wishlist', (_req, res) => res.sendFile(path.join(FRONT_END, 'navigation/Wish_list.HTML')));
+app.get('/contact', (_req, res) => res.sendFile(path.join(FRONT_END, 'contacts/contact.html')));
+app.get('/services', (_req, res) => res.sendFile(path.join(FRONT_END, 'navigation/menu/Menu.HTML')));
+app.get('/search', (_req, res) => res.sendFile(path.join(FRONT_END, 'searchbar/Search_bar.HTML')));
+app.get(['/profile/appointments', '/profile/appointments/'], (_req, res) => res.sendFile(path.join(FRONT_END, 'navigation/profile/appointments/appointments.html')));
+app.get('/services/hair-styling', (_req, res) => res.sendFile(path.join(FRONT_END, 'navigation/menu/hairstyling/HairStyling.html')));
+app.get('/services/hair-treatment', (_req, res) => res.sendFile(path.join(FRONT_END, 'navigation/menu/hairtreatment/HairTreatment.html')));
+app.get('/services/manicure', (_req, res) => res.sendFile(path.join(FRONT_END, 'navigation/menu/manicure/Manicure.html')));
+app.get('/services/pedicure', (_req, res) => res.sendFile(path.join(FRONT_END, 'navigation/menu/pedicure/Pedicure.html')));
+app.get('/services/spa', (_req, res) => res.sendFile(path.join(FRONT_END, 'navigation/menu/spa/Spa.html')));
+app.get('/services/facial', (_req, res) => res.sendFile(path.join(FRONT_END, 'navigation/menu/facial/facial.html')));
 
 app.use((err, _req, res, _next) => {
   if (err.status === 400 || err.type === 'entity.parse.failed') {

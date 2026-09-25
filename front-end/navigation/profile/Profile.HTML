@@ -4,27 +4,38 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Profile — DA² Beauty Paradise</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="stylesheet" href="./profile.css">
 </head>
 <body class="page-shell">
-  <main class="form-card" style="max-width:520px">
-    <p class="hero__eyebrow">Private atelier</p>
-    <h1 style="font-family:'Cormorant Garamond',serif; font-size:1.9rem; font-weight:600">Your Profile</h1>
-    <p style="color:var(--muted); margin-top:6px">Manage your account and bookings.</p>
-    <div style="display:grid; gap:10px; margin-top:20px">
-      <a class="button button--light" href="./appointments/appointments.html">My Appointments</a>
-      <a class="button button--light" href="./mail-info/mailinfo.html">Profile Information</a>
-      <a class="button button--light" href="./username/username.html">Username</a>
-      <a class="button button--light" href="./picture/picture.html">Picture</a>
-      <a class="button button--light" href="./notifications/notifications.html">Notifications</a>
-      <a class="button button--light" href="./whishlist/whishlist.html">Wishlist</a>
-      <a class="button button--light" href="./cuppon-code/cupponcode.html">Coupon Code</a>
-      <a class="button button--light" href="./refer-a-friend/referAfriend.html">Refer a Friend</a>
-      <a class="button button--dark" href="/login/login.html">Sign out</a>
+  <main class="form-card" style="max-width:560px; text-align:left">
+    <div style="display:flex; gap:16px; align-items:center; margin-bottom:10px">
+      <div id="avatar" style="width:64px; height:64px; border-radius:50%; background:linear-gradient(135deg, var(--gold), var(--gold-deep)); display:grid; place-items:center; color:#0a0a0c; font-weight:700; font-size:1.4rem; flex-shrink:0">D</div>
+      <div style="flex:1; min-width:0">
+        <h1 id="profileName" style="font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:600; margin:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">—</h1>
+        <p id="profileEmail" style="color:var(--muted); margin:2px 0 0; font-size:0.92rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">—</p>
+        <p id="profileMeta" style="color:var(--gold-soft); font-size:0.82rem; margin-top:4px"></p>
+      </div>
     </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:14px 0">
+      <div style="background:rgba(255,255,255,0.04); border:1px solid var(--line); border-radius:14px; padding:14px; text-align:center">
+        <div id="statAppointments" style="font-family:'Cormorant Garamond',serif; font-size:1.5rem; font-weight:700">—</div>
+        <div style="font-size:0.82rem; color:var(--muted)">Appointments</div>
+      </div>
+      <div style="background:rgba(255,255,255,0.04); border:1px solid var(--line); border-radius:14px; padding:14px; text-align:center">
+        <div style="font-family:'Cormorant Garamond',serif; font-size:1.5rem; font-weight:700">Gmail ✓</div>
+        <div style="font-size:0.82rem; color:var(--muted)">Verified</div>
+      </div>
+    </div>
+    <div style="display:grid; gap:10px; margin-top:6px">
+      <a class="button button--dark" href="/profile/appointments">My Appointments →</a>
+      <a class="button button--light" href="/about">About Atelier</a>
+      <button class="button button--light" id="signOutBtn" style="width:100%">Sign out</button>
+    </div>
+    <p id="profileMsg" style="margin-top:12px; font-size:0.88rem; color:var(--muted)" hidden></p>
   </main>
-  <script src="../../scripts/common.js"></script>
-  <script src="../../index.js"></script>
+  <script src="/scripts/common.js"></script>
+  <script src="/index.js"></script>
   <script src="./profile.js"></script>
 </body>
 </html>
